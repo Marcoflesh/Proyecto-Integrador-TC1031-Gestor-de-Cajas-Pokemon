@@ -7,9 +7,12 @@
 
 using namespace std;
 
+string upConvert(const string&);
+
 class PC {
 private:
     vector<PokeCapturado> inventario;
+    vector<string> cajas;
     string caja_actual, nombre;
 
     void copy_array(vector<PokeCapturado>& a, vector<PokeCapturado>& b, 
@@ -24,14 +27,17 @@ public:
 
     string getCajaActual();
     string getNombre();
+    vector<string> getCajas();
 
     void setCajaActual(string&);
     void setNombre(string&);
-    
+    void agregar_cajas(const string&);
+    bool cambiar_caja(const string&);
+    void siguiente_caja();
+    void caja_anterior();
+
     void cargar_csv();
     void guardar_csv();
-
-    char* upConvert(string&);
 
     void mostrar_caja();
     void seleccionar_nombre(const string&);

@@ -1,0 +1,9 @@
+CAJAS:Caja 1,Caja 2,Shinys,Legendarios
+25,Pikachu,Electrico,,35,Pikachu,30,Caja 1
+1,Bulbasaur,Planta,Veneno,45,Bulbasaur,16,Caja 1
+7,Squirtle,Agua,,44,Squirtle,18,Caja 2
+6,Charizard,Fuego,Volador,78,Charizard,36,Caja 2
+17,Pidgeotto,Normal,Volador,63,Pidgeotto,22,Caja 2
+130,Gyarados,Agua,Volador,95,Rojo,40,Shinys
+144,Articuno,Hielo,Volador,90,Articuno,50,Legendarios
+150,Mewtwo,Psiquico,,106,Mewtwo,70,Legendarios

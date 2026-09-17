@@ -5,18 +5,28 @@
 
 using namespace std;
 
+string upConvert(const string& text) {
+    string copia = text;
+    for (unsigned int i = 0; i < copia.length(); i++) {
+        copia[i] = toupper(copia[i]);
+    }
+    return copia;
+}
+
 PC::PC(const string& nombre) : caja_actual("Caja 1"), nombre(nombre) {}
 
 string PC::getCajaActual() {return caja_actual;}
 string PC::getNombre() {return nombre;}
+vector<string> PC::getCajas() {return cajas;}
 
 void PC::setCajaActual(string& nueva_caja) {caja_actual = nueva_caja;}
 void PC::setNombre(string& nuevo_nombre) {nombre = nuevo_nombre;}
 
-char* upConvert(string& s) {
-    for (unsigned int i = 0; i < s.length(); i++) {
-        s[i] = toupper(s[i]);
+void PC::agregar_cajas(const string& nueva){
+    for (int i = 0; i < cajas.size(); i++) {
+        if (cajas[i] == nueva) return;
     }
+    cajas.push_back(nueva);
 }
 
 void PC::cargar_csv(){
@@ -25,15 +35,33 @@ void PC::cargar_csv(){
 
     if (!archivo.is_open()) return;
 
+    bool primer_linea = true;
     while (getline(archivo, linea)) {
         if (linea.empty()) continue;
-        stringstream ss(linea);
-        string id, esp, t1, t2, hp, mote, lv, caja;
 
-        getline(ss, id, ','); getline(ss, esp, ','); getline(ss, t1, ',');
+        if (primer_linea) {
+            primer_linea = false;
+            if (linea.rfind("CAJAS:", 0) == 0) {
+                stringstream cs(linea.substr(6));
+                string nombre_caja;
+                while (getline(cs, nombre_caja, ',')) {
+                    agregar_cajas(nombre_caja);
+                }
+                continue;
+            }
+        }
+
+        stringstream ss(linea);
+        string id, nomb, t1, t2, hp, mote, lv, caja;
+
+        getline(ss, id, ','); getline(ss, nomb, ','); getline(ss, t1, ',');
         getline(ss, t2, ','); getline(ss, hp, ','); getline(ss, mote, ',');
         getline(ss, lv, ','); getline(ss, caja, ',');
 
+        PokeCapturado nuevo(stoi(id), nomb, t1, t2, stoi(hp), mote, stoi(lv), 
+        caja);
+        inventario.push_back(nuevo);
+        agregar_cajas(caja);
     }
 
     archivo.close();
@@ -41,21 +69,22 @@ void PC::cargar_csv(){
 }
 
 void PC::guardar_csv() {
-    ifstream entrada("Por_definir.txt");
     ofstream temporal("Por_definir_temp.txt");
+
+    temporal << "CAJAS:";
+    for (int i = 0; i < cajas.size(); i++) {
+        temporal << cajas[i];
+        if (i < (int)cajas.size() - 1) temporal << ",";
+    }
+    temporal << endl;
 
     for(int i = 0; i < inventario.size(); i++) {
         PokeCapturado& p = inventario[i];
-        if (p.getCaja() == caja_actual) {
             temporal << p.getID() << "," << p.getNombre() << "," << p.getTipo(1)
             << "," << p.getTipo(2) << "," << p.getHP() << "," << p.getMote()
             << "," << p.getLv() << "," << p.getCaja() << endl;
-        }
-        entrada.close();
-        temporal.close();
-        remove("Por_definir.txt");
-        rename("Por_definir_temp.txt", "Por_definir.txt");
     }
+    temporal.close();
 }
 
 void PC::copy_array(vector<PokeCapturado>& a, vector<PokeCapturado>& b, 
@@ -103,7 +132,7 @@ void PC::merge_split(vector<PokeCapturado>& a, vector<PokeCapturado>& b,
         return;
     }
 
-    int mid = (high - low) / 2;
+    int mid = low + (high - low) / 2;
 
     merge_split(a, b, low, mid);
     merge_split(a, b, mid + 1, high);
@@ -198,6 +227,11 @@ void PC::mover_poke_caja(const string& nombre, const string& caja) {
     cout << "No se encontró a " << nombre << " En la caja actual" << endl;
 }
 
+void PC::agregar_pokemon(PokeCapturado& nuevo) {
+    inventario.push_back(nuevo);
+    agregar_cajas(nuevo.getCaja());
+}
+
 void PC::liberar_pokemon(const string& nombre) {
     for (int i = 0; i < inventario.size(); i++) {
         if (inventario[i].getCaja() == caja_actual && 
@@ -216,5 +250,37 @@ void PC::liberar_pokemon(const string& nombre) {
     cout << "No se encontró a " << nombre << " en esta caja" << endl;
 }
 
+bool PC::cambiar_caja(const string& nombre) {
+    for (int i = 0; i < cajas.size(); i++) {
+        if (cajas[i] == nombre) {
+            caja_actual = nombre;
+            return true;
+        }
+    }
+    return false;
+}
+
+void PC::siguiente_caja() {
+    if (cajas.empty()) return;
+    for (int i = 0; i < cajas.size(); i++) {
+        if (cajas[i] == caja_actual) {
+            int siguiente = (i + 1) % cajas.size();
+            caja_actual = cajas[siguiente];
+            return;
+        }
+    }
+    caja_actual = cajas[0];
+}
+
+void PC::caja_anterior() {
+    for (int i = 0; i < cajas.size(); i++) {
+        if (cajas[i] == caja_actual) {
+            int anterior = (i - 1 + cajas.size()) % cajas.size();
+            caja_actual = cajas[anterior];
+            return;
+        }
+    }
+    caja_actual = cajas[0];
+}
 
 //https://stackoverflow.com/questions/32929977/method-that-converts-string-to-upper-case
