@@ -69,12 +69,15 @@ void PC::cargar_csv(){
 }
 
 void PC::guardar_csv() {
+    ifstream entrada("Por_definir.txt");
     ofstream temporal("Por_definir_temp.txt");
 
+    if (!temporal.is_open()) return;
+
     temporal << "CAJAS:";
-    for (int i = 0; i < cajas.size(); i++) {
+    for (size_t i = 0; i < cajas.size(); i++) {
         temporal << cajas[i];
-        if (i < (int)cajas.size() - 1) temporal << ",";
+        if (i + 1 < cajas.size()) temporal << ",";
     }
     temporal << endl;
 
@@ -84,7 +87,11 @@ void PC::guardar_csv() {
             << "," << p.getTipo(2) << "," << p.getHP() << "," << p.getMote()
             << "," << p.getLv() << "," << p.getCaja() << endl;
     }
+    entrada.close();
     temporal.close();
+
+    remove("Por_definir.txt");
+    rename("Por_definir_temp.txt", "Por_definir.txt");
 }
 
 void PC::copy_array(vector<PokeCapturado>& a, vector<PokeCapturado>& b, 
@@ -264,7 +271,7 @@ void PC::siguiente_caja() {
     if (cajas.empty()) return;
     for (int i = 0; i < cajas.size(); i++) {
         if (cajas[i] == caja_actual) {
-            int siguiente = (i + 1) % cajas.size();
+            size_t siguiente = (i + 1) % cajas.size();
             caja_actual = cajas[siguiente];
             return;
         }
@@ -273,9 +280,11 @@ void PC::siguiente_caja() {
 }
 
 void PC::caja_anterior() {
+    if (cajas.empty()) {return;}
+
     for (int i = 0; i < cajas.size(); i++) {
         if (cajas[i] == caja_actual) {
-            int anterior = (i - 1 + cajas.size()) % cajas.size();
+            size_t anterior = (i + cajas.size() - 1) % cajas.size();
             caja_actual = cajas[anterior];
             return;
         }
