@@ -14,6 +14,11 @@ private:
     vector<PokeCapturado> inventario;
     vector<string> cajas;
     string caja_actual, nombre;
+    const int MAX_CAJA = 30;
+    const int COLUMNAS = 6;
+    const int FILAS = 5;
+    const int ANCHO = 18;
+
 
     void copy_array(vector<PokeCapturado>& a, vector<PokeCapturado>& b, 
         int, int);
@@ -21,6 +26,7 @@ private:
     int, int, int);
     void merge_split(vector<PokeCapturado>& a, vector<PokeCapturado>& b,
     int, int);
+    int poke_por_caja(const string&);
     
 public:
     PC(const string& nombre = "");
@@ -31,13 +37,15 @@ public:
 
     void setCajaActual(string&);
     void setNombre(string&);
+
     void agregar_cajas(const string&);
     bool cambiar_caja(const string&);
     void siguiente_caja();
     void caja_anterior();
 
-    void cargar_csv();
-    void guardar_csv();
+    void cargar_csv(const string&);
+    void guardar_csv(const string&);
+    void crear_jugador(const string&);
 
     void mostrar_caja();
     void seleccionar_nombre(const string&);

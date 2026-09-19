@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <iomanip>
 
 using namespace std;
 
@@ -24,13 +25,30 @@ void PC::setNombre(string& nuevo_nombre) {nombre = nuevo_nombre;}
 
 void PC::agregar_cajas(const string& nueva){
     for (int i = 0; i < cajas.size(); i++) {
-        if (cajas[i] == nueva) return;
+        if (cajas[i] == nueva) {return;}
     }
     cajas.push_back(nueva);
 }
 
-void PC::cargar_csv(){
-    ifstream archivo("Por_definir.txt");
+int PC::poke_por_caja(const string& nombre) {
+    int cantidad = 0;
+    int i = 0;
+
+    while (i < inventario.size()) {
+        if (inventario[i].getCaja() == nombre) {
+            cantidad++;
+        }
+        i++;
+    }
+    return cantidad;
+}
+
+void PC::cargar_csv(const string& file){
+    inventario.clear();
+    cajas.clear();
+    caja_actual = "Caja 1";
+
+    ifstream archivo(file);
     string linea;
 
     if (!archivo.is_open()) return;
@@ -60,24 +78,30 @@ void PC::cargar_csv(){
 
         PokeCapturado nuevo(stoi(id), nomb, t1, t2, stoi(hp), mote, stoi(lv), 
         caja);
-        inventario.push_back(nuevo);
         agregar_cajas(caja);
+
+        if (poke_por_caja(caja) < MAX_CAJA) {inventario.push_back(nuevo);} 
+        else {cout << "Espacio en caja lleno" << endl;}
     }
 
     archivo.close();
+    if (!cajas.empty()) {caja_actual = cajas[0];}
     cout << inventario.size() << " Pokemon cargados correctamente" << endl;
 }
 
-void PC::guardar_csv() {
-    ifstream entrada("Por_definir.txt");
-    ofstream temporal("Por_definir_temp.txt");
+void PC::guardar_csv(const string& file) {
+    string temp = file + ".temp";
+
+    ifstream entrada(file);
+    ofstream temporal(temp);
 
     if (!temporal.is_open()) return;
 
     temporal << "CAJAS:";
+
     for (size_t i = 0; i < cajas.size(); i++) {
         temporal << cajas[i];
-        if (i + 1 < cajas.size()) temporal << ",";
+        if (i + 1 < cajas.size()) {temporal << ",";}
     }
     temporal << endl;
 
@@ -90,8 +114,31 @@ void PC::guardar_csv() {
     entrada.close();
     temporal.close();
 
-    remove("Por_definir.txt");
-    rename("Por_definir_temp.txt", "Por_definir.txt");
+    remove(file.data());
+    rename(temp.data(), file.data());
+}
+
+void PC::crear_jugador(const string& file) {
+    ifstream entrada(file);
+
+    if (entrada.is_open()) {
+        entrada.close();
+        return;
+    }
+
+    inventario.clear();
+    cajas.clear();
+    caja_actual = "Caja 1";
+
+    agregar_cajas("Caja 1");
+    agregar_cajas("Caja 2");
+
+    ofstream archivo(file);
+
+    if (!archivo.is_open()) {return;}
+
+    archivo << "CAJAS:Caja 1,Caja 2" << endl;
+    archivo.close();
 }
 
 void PC::copy_array(vector<PokeCapturado>& a, vector<PokeCapturado>& b, 
@@ -171,37 +218,73 @@ void PC::ordenar_caja() {
 
     if (esta_caja.empty()) return;
 
-    vector<PokeCapturado> ordena = merge_sort(esta_caja);
+    esta_caja = merge_sort(esta_caja);
 
     inventario = otra_caja;
-    for (int i = 0; i < ordena.size(); i++){inventario.push_back(ordena[i]);}
+    for (int i = 0; i < esta_caja.size(); i++){
+        inventario.push_back(esta_caja[i]);
+    }
 
     cout << "Se ordenó por No. de la Pokedex." << endl;
 }
 
 void PC::mostrar_caja() {
-    cout << "\n==================================================\n";
-    cout << "                 SISTEMA PC DE " << upConvert(nombre) << endl;
-    cout << "==================================================\n";
-    cout << " [ ESTAS EN LA CAJA: \"" << caja_actual << "\" ]" << endl;
-    cout << " ------------------------------------------------\n";
+    vector<size_t> pokemon_caja;
 
-    bool pokemon = false;
     for (int i = 0; i < inventario.size(); i++) {
         if (inventario[i].getCaja() == caja_actual) {
-            cout << " - " << inventario[i].getMote();
-            if (inventario[i].getMote() != inventario[i].getNombre()) {
-                cout << " (" << inventario[i].getNombre() << ")";
-            }
-            cout << " [#" << inventario[i].getID() << " | Nv. "
-            << inventario[i].getLv() << "]" << endl;
-            pokemon = true;
+            pokemon_caja.push_back(i);
         }
     }
-    if (!pokemon) {
-        cout << "No hay Pokemon en esta caja" << endl;
+
+    cout << "\n============================================================";
+    cout << "============================================================\n";
+
+    cout << "                 SISTEMA PC DE " << upConvert(nombre) << endl;
+
+    cout << "                 CAJA ACTUAL: " << upConvert(caja_actual) << endl;
+
+    cout << "============================================================";
+    cout << "============================================================\n";
+
+    string borde = "+";
+
+    for (int i = 0; i < COLUMNAS; i++) {borde += string(ANCHO, '-') + "+";}
+
+    cout << borde << endl;
+
+    for(int i = 0; i < FILAS; i++) {
+        for (int j = 0; j < COLUMNAS; j++) {
+            size_t posicion = i * COLUMNAS + j;
+            string contenido = "";
+            if (posicion < pokemon_caja.size()) {
+                PokeCapturado& pokemon = inventario[pokemon_caja[posicion]];
+
+                contenido = " " + to_string(posicion + 1) + ". " +
+                pokemon.getMote();
+                if (contenido.length() > ANCHO) {
+                    contenido = contenido.substr(0, ANCHO);
+                }
+            }
+            cout << "|" << left << setw(ANCHO) << contenido;
+        }
+        cout << "|" << endl;
+        for (int k = 0; k < COLUMNAS; k++) {
+            size_t posicion = i * COLUMNAS + k;
+            
+            string contenido = "";
+
+            if (posicion < pokemon_caja.size()) {
+                PokeCapturado& pokemon = inventario[pokemon_caja[posicion]];
+
+                contenido = " #" + to_string(pokemon.getID()) + " Lv. "
+                    + to_string(pokemon.getLv());
+            }
+            cout << "|" << left << setw(ANCHO) << contenido;
+        }
+        cout << "|" << endl;
+        cout << borde << endl;
     }
-    cout << "------------------------------------------------\n";
 }
 
 void PC::seleccionar_nombre(const string& nombre) {
@@ -217,6 +300,24 @@ void PC::seleccionar_nombre(const string& nombre) {
 }
 
 void PC::mover_poke_caja(const string& nombre, const string& caja) {
+    bool existe = false;
+
+    for (int i = 0; i < cajas.size(); i++) {
+        if (cajas[i] == caja) {
+            existe = true;
+            break;
+        }
+    }
+
+    if (!existe) {
+        return;
+    }
+
+    if (caja != caja_actual && poke_por_caja(caja) >= MAX_CAJA) {
+        cout << "La caja " << caja << " está llena" << endl;
+        return;
+    }
+
     for (int i = 0; i < inventario.size(); i++) {
         if (inventario[i].getCaja() == caja_actual && 
         (inventario[i].getMote() == nombre || 
@@ -235,6 +336,12 @@ void PC::mover_poke_caja(const string& nombre, const string& caja) {
 }
 
 void PC::agregar_pokemon(PokeCapturado& nuevo) {
+    if (poke_por_caja(nuevo.getCaja()) >= MAX_CAJA) {
+        cout << "No se puede agregar " << nuevo.getMote() 
+            << " la caja está llena" << endl;
+            return;
+    }
+
     inventario.push_back(nuevo);
     agregar_cajas(nuevo.getCaja());
 }
@@ -269,7 +376,8 @@ bool PC::cambiar_caja(const string& nombre) {
 
 void PC::siguiente_caja() {
     if (cajas.empty()) return;
-    for (int i = 0; i < cajas.size(); i++) {
+
+    for (size_t i = 0; i < cajas.size(); i++) {
         if (cajas[i] == caja_actual) {
             size_t siguiente = (i + 1) % cajas.size();
             caja_actual = cajas[siguiente];
@@ -282,7 +390,7 @@ void PC::siguiente_caja() {
 void PC::caja_anterior() {
     if (cajas.empty()) {return;}
 
-    for (int i = 0; i < cajas.size(); i++) {
+    for (size_t i = 0; i < cajas.size(); i++) {
         if (cajas[i] == caja_actual) {
             size_t anterior = (i + cajas.size() - 1) % cajas.size();
             caja_actual = cajas[anterior];
@@ -291,5 +399,6 @@ void PC::caja_anterior() {
     }
     caja_actual = cajas[0];
 }
+
 
 //https://stackoverflow.com/questions/32929977/method-that-converts-string-to-upper-case
