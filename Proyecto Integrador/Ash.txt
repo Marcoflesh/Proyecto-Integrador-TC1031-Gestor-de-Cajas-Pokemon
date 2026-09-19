@@ -1,0 +1,44 @@
+CAJAS:Caja 1,Caja 2,Shinys,Legendarios
+6,Charizard,Fuego,Volador,78,Charizard,36,Caja 2
+94,Gengar,Fantasma,Veneno,60,Sombra,38,Caja 2
+143,Snorlax,Normal,,160,Snorlax,40,Caja 2
+68,Machamp,Lucha,,90,Machamp,44,Caja 2
+9,Blastoise,Agua,,79,Blastoise,41,Caja 2
+131,Lapras,Agua,Hielo,130,Nessie,35,Caja 2
+65,Alakazam,Psiquico,,55,Alakazam,45,Caja 2
+149,Dragonite,Dragon,Volador,91,Dragonite,55,Caja 2
+144,Articuno,Hielo,Volador,90,Articuno,50,Legendarios
+145,Zapdos,Electrico,Volador,90,Zapdos,50,Legendarios
+146,Moltres,Fuego,Volador,90,Moltres,50,Legendarios
+37,Vulpix,Fuego,,38,Cenizas,25,Shinys
+54,Psyduck,Agua,,50,Dorado,27,Shinys
+123,Scyther,Bicho,Volador,70,Filo,33,Shinys
+130,Gyarados,Agua,Volador,95,Rojito,30,Shinys
+1,Bulbasaur,Planta,Veneno,45,Bulbasaur,13,Caja 1
+4,Charmander,Fuego,,39,Charmander,12,Caja 1
+7,Squirtle,Agua,,44,Tortuga,17,Caja 1
+10,Caterpie,Bicho,,45,Caterpie,3,Caja 1
+16,Pidgey,Normal,Volador,40,Pidgey,7,Caja 1
+16,Pidgey,Normal,Volador,40,Vientito,16,Caja 1
+19,Rattata,Normal,,30,Rattata,4,Caja 1
+19,Rattata,Normal,,30,Colmillos,9,Caja 1
+25,Pikachu,Electrico,,35,Pikachu,28,Caja 1
+25,Pikachu,Electrico,,35,Chispa,15,Caja 1
+27,Sandshrew,Tierra,,50,Sandshrew,21,Caja 1
+39,Jigglypuff,Normal,,115,Jiggly,26,Caja 1
+41,Zubat,Veneno,Volador,40,Zubat,11,Caja 1
+50,Diglett,Tierra,,10,Diglett,14,Caja 1
+58,Growlithe,Fuego,,55,Growlithe,24,Caja 1
+60,Poliwag,Agua,,40,Poliwag,12,Caja 1
+63,Abra,Psiquico,,25,Abra,9,Caja 1
+66,Machop,Lucha,,70,Machop,19,Caja 1
+74,Geodude,Roca,Tierra,40,Piedrita,15,Caja 1
+88,Grimer,Veneno,,80,Grimer,20,Caja 1
+92,Gastly,Fantasma,Veneno,30,Gastly,22,Caja 1
+98,Krabby,Agua,,30,Krabby,10,Caja 1
+100,Voltorb,Electrico,,40,Voltorb,17,Caja 1
+104,Cubone,Tierra,,50,Cubone,23,Caja 1
+129,Magikarp,Agua,,20,Magikarp,5,Caja 1
+133,Eevee,Normal,,55,Eevee,20,Caja 1
+147,Dratini,Dragon,,41,Dratini,10,Caja 1
+152,Chikorita,Planta,,23,Canela,2,Caja 1
