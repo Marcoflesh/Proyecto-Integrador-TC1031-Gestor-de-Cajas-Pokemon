@@ -44,6 +44,36 @@ void PC::crear_caja(const string& nueva) {
     caja_actual = nueva;
 }
 
+void PC::renombrar_caja(const string& nombre) {
+    for (int i = 0; i < nombre.length(); i++){if (nombre[i] == ',') {return;}}
+
+    if (nombre == caja_actual) {return;}
+
+    for (int i = 0; i < cajas.size(); i++) {
+        if (cajas[i] != caja_actual && 
+            upConvert(cajas[i]) == upConvert(nombre)) {
+                cout << "Ya existe una caja con ese nombre" << endl;
+                return;
+            }
+    }
+    
+    string nombr_anterior = caja_actual;
+
+    for (int i = 0; i < cajas.size(); i++) {
+        if (cajas[i] == nombr_anterior) {
+            cajas[i] = nombre;
+            break;
+        }
+    }
+    for (size_t i = 0; i < inventario.size(); i++) {
+        if (inventario[i].getCaja() == nombr_anterior) {
+            inventario[i].setCaja(nombre);
+            break;
+        }
+    }
+    caja_actual = nombre;
+}
+
 int PC::poke_por_caja(const string& nombre) {
     int cantidad = 0;
     int i = 0;
@@ -254,7 +284,7 @@ void PC::mostrar_caja() {
     cout << "\n============================================================";
     cout << "============================================================\n";
 
-    cout << "                 SISTEMA PC DE " << upConvert(nombre) << endl;
+    cout << "                    PC DE " << upConvert(nombre) << endl;
 
     cout << "                 CAJA ACTUAL: " << upConvert(caja_actual) << endl;
 
@@ -302,10 +332,11 @@ void PC::mostrar_caja() {
 }
 
 void PC::seleccionar_nombre(const string& nombre) {
+    string busqueda = upConvert(nombre);
     for (int i = 0; i < inventario.size(); i++) {
         if (inventario[i].getCaja() == caja_actual && (
-            inventario[i].getMote() == nombre || 
-            inventario[i].getNombre() == nombre)) {
+            upConvert(inventario[i].getMote()) == busqueda || 
+            upConvert(inventario[i].getNombre()) == busqueda)) {
                 inventario[i].mostrar_info();
                 return;
         }
@@ -323,9 +354,7 @@ void PC::mover_poke_caja(const string& nombre, const string& caja) {
         }
     }
 
-    if (!existe) {
-        return;
-    }
+    if (!existe) {return;}
 
     if (caja != caja_actual && poke_por_caja(caja) >= MAX_CAJA) {
         cout << "La caja " << caja << " está llena" << endl;
@@ -334,8 +363,8 @@ void PC::mover_poke_caja(const string& nombre, const string& caja) {
 
     for (int i = 0; i < inventario.size(); i++) {
         if (inventario[i].getCaja() == caja_actual && 
-        (inventario[i].getMote() == nombre || 
-        inventario[i].getNombre() == nombre)) {
+        (upConvert(inventario[i].getMote()) == upConvert(nombre) || 
+        upConvert(inventario[i].getNombre()) == upConvert(nombre))) {
             inventario[i].setCaja(caja);
             
             string tag = inventario[i].getMote();

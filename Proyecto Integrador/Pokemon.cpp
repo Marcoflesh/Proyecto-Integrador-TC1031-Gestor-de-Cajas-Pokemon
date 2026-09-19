@@ -37,7 +37,7 @@ void PokeCapturado::mostrar_info() {
     cout << "\n==================================\n";
     cout << "Info del Pokemón: " << mote << endl;
     cout << "\n==================================\n";
-    cout << "Especie:      " << nom_especie << endl;
+    cout << "Nombre:      " << nom_especie << endl;
     cout << "No. Pokedex:  #" << id_dex << endl;
     cout << "Tipos:        " << tipo1;
     if (!tipo2.empty()) {cout << " / " << tipo2;} cout << endl;
