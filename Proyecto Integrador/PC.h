@@ -39,6 +39,7 @@ public:
     void setNombre(string&);
 
     void agregar_cajas(const string&);
+    void crear_caja(const string&);
     bool cambiar_caja(const string&);
     void siguiente_caja();
     void caja_anterior();

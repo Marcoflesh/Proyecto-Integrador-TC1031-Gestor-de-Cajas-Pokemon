@@ -30,6 +30,20 @@ void PC::agregar_cajas(const string& nueva){
     cajas.push_back(nueva);
 }
 
+void PC::crear_caja(const string& nueva) {
+    for (int i = 0; i < nueva.length(); i++){
+        if (nueva[i] == ',') {return;}
+    }
+    for (int i = 0; i < cajas.size(); i++) {
+        if (upConvert(cajas[i]) == upConvert(nueva)) {
+            cout << "Ya existe una caja con ese nombre" << endl;
+            return;
+        }
+    }
+    cajas.push_back(nueva);
+    caja_actual = nueva;
+}
+
 int PC::poke_por_caja(const string& nombre) {
     int cantidad = 0;
     int i = 0;
