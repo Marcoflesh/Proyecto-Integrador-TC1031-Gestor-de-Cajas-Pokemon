@@ -4,12 +4,20 @@
 #include <iostream>
 #include <string>
 #include <vector>
+//#include <Windows.h>
 
 using namespace std;
 
 void menu(PC&, const string&);
 
 int main() {
+
+    /* 
+        SetConsoleOutputCP(CP_UTF8);
+    SetConsoleCP(CP_UTF8);
+    setlocale(LC_NUMERIC, "C");
+    */
+
     bool close = false;
     do {
         cout << "\n==============================" << endl;
