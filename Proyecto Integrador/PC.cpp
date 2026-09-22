@@ -65,7 +65,7 @@ void PC::renombrar_caja(const string& nombre) {
             break;
         }
     }
-    for (size_t i = 0; i < inventario.size(); i++) {
+    for (unsigned int i = 0; i < inventario.size(); i++) {
         if (inventario[i].getCaja() == nombr_anterior) {
             inventario[i].setCaja(nombre);
             break;
@@ -143,7 +143,7 @@ void PC::guardar_csv(const string& file) {
 
     temporal << "CAJAS:";
 
-    for (size_t i = 0; i < cajas.size(); i++) {
+    for (unsigned int i = 0; i < cajas.size(); i++) {
         temporal << cajas[i];
         if (i + 1 < cajas.size()) {temporal << ",";}
     }
@@ -273,7 +273,7 @@ void PC::ordenar_caja() {
 }
 
 void PC::mostrar_caja() {
-    vector<size_t> pokemon_caja;
+    vector<unsigned int> pokemon_caja;
 
     for (int i = 0; i < inventario.size(); i++) {
         if (inventario[i].getCaja() == caja_actual) {
@@ -299,7 +299,7 @@ void PC::mostrar_caja() {
 
     for(int i = 0; i < FILAS; i++) {
         for (int j = 0; j < COLUMNAS; j++) {
-            size_t posicion = i * COLUMNAS + j;
+            unsigned int posicion = i * COLUMNAS + j;
             string contenido = "";
             if (posicion < pokemon_caja.size()) {
                 PokeCapturado& pokemon = inventario[pokemon_caja[posicion]];
@@ -314,7 +314,7 @@ void PC::mostrar_caja() {
         }
         cout << "|" << endl;
         for (int k = 0; k < COLUMNAS; k++) {
-            size_t posicion = i * COLUMNAS + k;
+            unsigned int posicion = i * COLUMNAS + k;
             
             string contenido = "";
 
@@ -420,9 +420,9 @@ bool PC::cambiar_caja(const string& nombre) {
 void PC::siguiente_caja() {
     if (cajas.empty()) return;
 
-    for (size_t i = 0; i < cajas.size(); i++) {
+    for (unsigned int i = 0; i < cajas.size(); i++) {
         if (cajas[i] == caja_actual) {
-            size_t siguiente = (i + 1) % cajas.size();
+            unsigned int siguiente = (i + 1) % cajas.size();
             caja_actual = cajas[siguiente];
             return;
         }
@@ -433,9 +433,9 @@ void PC::siguiente_caja() {
 void PC::caja_anterior() {
     if (cajas.empty()) {return;}
 
-    for (size_t i = 0; i < cajas.size(); i++) {
+    for (unsigned int i = 0; i < cajas.size(); i++) {
         if (cajas[i] == caja_actual) {
-            size_t anterior = (i + cajas.size() - 1) % cajas.size();
+            unsigned int anterior = (i + cajas.size() - 1) % cajas.size();
             caja_actual = cajas[anterior];
             return;
         }
