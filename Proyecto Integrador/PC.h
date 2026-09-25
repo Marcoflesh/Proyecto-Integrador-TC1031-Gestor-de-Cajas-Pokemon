@@ -27,6 +27,7 @@ private:
     void merge_split(vector<PokeCapturado>& a, vector<PokeCapturado>& b,
     int, int);
     int poke_por_caja(const string&);
+    void agregar_cajas(const string&);
     
 public:
     PC(const string& nombre = "");
@@ -38,7 +39,6 @@ public:
     void setCajaActual(string&);
     void setNombre(string&);
 
-    void agregar_cajas(const string&);
     void crear_caja(const string&);
     void renombrar_caja(const string&);
     bool cambiar_caja(const string&);

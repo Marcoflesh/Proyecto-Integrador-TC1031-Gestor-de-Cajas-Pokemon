@@ -45,31 +45,29 @@ void PC::crear_caja(const string& nueva) {
 }
 
 void PC::renombrar_caja(const string& nombre) {
-    for (int i = 0; i < nombre.length(); i++){if (nombre[i] == ',') {return;}}
+    if(nombre.empty()) {return;}
 
-    if (nombre == caja_actual) {return;}
-
-    for (int i = 0; i < cajas.size(); i++) {
-        if (cajas[i] != caja_actual && 
-            upConvert(cajas[i]) == upConvert(nombre)) {
-                cout << "Ya existe una caja con ese nombre" << endl;
-                return;
-            }
+    for (unsigned int i = 0; i < nombre.length(); i++) {
+        if (nombre[i] == ',') {return;}
     }
-    
-    string nombr_anterior = caja_actual;
+    if (nombre == caja_actual) {return;}
+    for (unsigned int i = 0; i < cajas.size(); i++) {
+        if (cajas[i] != caja_actual && upConvert(cajas[i]) == upConvert(nombre)) {
+            return;
+        }
+    }
 
-    for (int i = 0; i < cajas.size(); i++) {
-        if (cajas[i] == nombr_anterior) {
+    string last_name = caja_actual;
+
+    for(unsigned int i = 0; i < cajas.size(); i++) {
+        if (cajas[i] == last_name) {
             cajas[i] = nombre;
             break;
         }
     }
-    for (unsigned int i = 0; i < inventario.size(); i++) {
-        if (inventario[i].getCaja() == nombr_anterior) {
-            inventario[i].setCaja(nombre);
-            break;
-        }
+
+    for (unsigned int i = 0; i < inventario.size(); i++){
+        if (inventario[i].getCaja() == last_name) {inventario[i].setCaja(nombre);}
     }
     caja_actual = nombre;
 }
