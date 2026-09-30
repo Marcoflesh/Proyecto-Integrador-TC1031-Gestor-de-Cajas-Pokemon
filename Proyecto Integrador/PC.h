@@ -7,13 +7,18 @@
 
 using namespace std;
 
+class Nodo;
+
 string upConvert(const string&);
 
 class PC {
 private:
     vector<PokeCapturado> inventario;
-    vector<string> cajas;
-    string caja_actual, nombre;
+    string nombre;
+
+    Nodo* primera_caja;
+    Nodo* caja_actual;
+
     const int MAX_CAJA = 30;
     const int COLUMNAS = 6;
     const int FILAS = 5;
@@ -27,10 +32,13 @@ private:
     void merge_split(vector<PokeCapturado>& a, vector<PokeCapturado>& b,
     int, int);
     int poke_por_caja(const string&);
+    Nodo* buscar_caja(const string&);
     void agregar_cajas(const string&);
+    void limpiar_cajas();
     
 public:
     PC(const string& nombre = "");
+    ~PC();
 
     string getCajaActual();
     string getNombre();
@@ -57,6 +65,16 @@ public:
 
     vector<PokeCapturado> merge_sort(const vector<PokeCapturado>&);
     void ordenar_caja();
+};
+
+class Nodo {
+private:
+    string nombre;
+    Nodo *siguiente;
+
+    Nodo(const string&);
+
+    friend class PC;
 };
 
 #endif

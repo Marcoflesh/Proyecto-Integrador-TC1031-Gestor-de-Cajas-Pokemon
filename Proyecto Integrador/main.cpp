@@ -13,7 +13,7 @@ void menu(PC&, const string&);
 int main() {
 
     /* 
-        SetConsoleOutputCP(CP_UTF8);
+    SetConsoleOutputCP(CP_UTF8);
     SetConsoleCP(CP_UTF8);
     setlocale(LC_NUMERIC, "C");
     */
@@ -38,15 +38,16 @@ int main() {
 
                 cout << "\n Jugadores disponibles:" << endl;
                 for(int i = 0; i < users.size(); i++) {
-                    cout << "[" << i + 1 << "] " << users[i].getUser() << endl;
+                    cout << "[" << i  << "] " << users[i].getUser() << endl;
                 }
                 int choice;
                 cout << "Selecciona el jugador: ";
                 cin >> choice;
 
-                if(choice < 1 || choice > users.size()) {break;}
+                if (users.empty()) {break;}
+                if(choice < 0 || choice >= users.size()) {break;}
 
-                User usuario = users[choice - 1];
+                User usuario = users[choice];
                 PC jugador(usuario.getUser());
 
                 jugador.cargar_csv(usuario.getArchivo());
