@@ -14,7 +14,8 @@ string upConvert(const string& text) {
     return copia;
 }
 
-Nodo::Nodo(const string& nombre) : nombre(nombre), siguiente(nullptr) {}
+Nodo::Nodo(const string& nombre) : nombre(nombre), siguiente(nullptr), 
+    anterior(nullptr) {}
 
 PC::PC(const string& nombre) : nombre(nombre), 
     primera_caja(nullptr), caja_actual(nullptr) {}
@@ -29,9 +30,7 @@ string PC::getNombre() {return nombre;}
 vector<string> PC::getCajas() {
     vector<string> nombres;
 
-    if (primera_caja == nullptr) {
-        return nombres;
-    }
+    if (primera_caja == nullptr) {return nombres;}
     Nodo* p = primera_caja;
     do {
         nombres.push_back(p->nombre);
@@ -45,7 +44,7 @@ void PC::setCajaActual(string& nueva_caja) {cambiar_caja(nueva_caja);}
 void PC::setNombre(string& nuevo_nombre) {nombre = nuevo_nombre;}
 
 Nodo* PC::buscar_caja(const string& nombre) {
-    if (primera_caja == nullptr) {return nullptr;}
+    if (primera_caja == nullptr || nombre.empty()) {return nullptr;}
 
     string busqueda = upConvert(nombre);
     Nodo* p = primera_caja;
@@ -77,35 +76,46 @@ void PC::limpiar_cajas() {
     caja_actual = nullptr;
 }
 
-void PC::agregar_cajas(const string& nueva){
-    if(nueva.empty() || buscar_caja(nueva) != nullptr) {return;}
+bool PC::agregar_cajas(const string& nueva){
+    if(nueva.empty() || buscar_caja(nueva) != nullptr) {return false;}
 
     Nodo* nuevo = new Nodo(nueva);
 
     if (primera_caja == nullptr) {
         primera_caja = nuevo;
         caja_actual  = nuevo;
-        nuevo->siguiente = nuevo;
-        return;
-    }
-    Nodo* p = primera_caja;
 
-    while (p->siguiente != primera_caja){p = p->siguiente;}
-    p->siguiente = nuevo;
+        nuevo->anterior = nuevo;
+        nuevo->siguiente = nuevo;
+
+        return true;
+    }
+    Nodo* ultima_caja = primera_caja->anterior;
+    
+    ultima_caja->siguiente = nuevo;
+    nuevo->anterior = ultima_caja;
     nuevo->siguiente = primera_caja;
+    primera_caja->anterior = nuevo;
+
+    return true;
 }
 
 void PC::crear_caja(const string& nueva) {
     if(nueva.empty()) {return;}
 
+    bool espacios = true;
+
     for (unsigned int i = 0; i < nueva.length(); i++) {
         if (nueva[i] == ',') {return;}
+
+        if (nueva[i] != ' ') { espacios = false;}
     }
 
-    if(buscar_caja(nueva) != nullptr) {return;}
+    if (espacios) {return;}
+
+    if (!agregar_cajas(nueva)) {return;}
     
-    agregar_cajas(nueva);
-    caja_actual = buscar_caja(nueva);
+    caja_actual = primera_caja->anterior;
 }
 
 void PC::renombrar_caja(const string& nombre) {
@@ -182,6 +192,7 @@ void PC::cargar_csv(const string& file){
 
         PokeCapturado nuevo(stoi(id), nomb, t1, t2, stoi(hp), mote, stoi(lv), 
         caja);
+
         agregar_cajas(caja);
 
         if (poke_por_caja(caja) < MAX_CAJA) {inventario.push_back(nuevo);} 
@@ -513,11 +524,7 @@ void PC::caja_anterior() {
         return;
     }
 
-    Nodo* p = primera_caja;
-
-    while (p->siguiente != caja_actual) {p = p->siguiente;}
-
-    caja_actual = p;
+    caja_actual = caja_actual->anterior;
 }
 
 

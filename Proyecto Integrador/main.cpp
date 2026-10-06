@@ -133,9 +133,15 @@ void menu(PC& pc, const string& archivo) {
                 int id, hp, lv;
                 string nomb, tipo1, tipo2, mote;
 
-                cout << "Numero de Pokedex: ";
-                cin >> id;
+                do{
+                    cout << "Numero de Pokedex: ";
+                    cin >> id;
 
+                    if (id <= 0) {
+                        cout << "El No. de Pokedex debe ser mayor que 0" << endl;
+                    }
+                } while (id <= 0);
+                
                 cout << "Nombre del Pokemon: ";
                 cin >> nomb;
 
@@ -147,16 +153,28 @@ void menu(PC& pc, const string& archivo) {
 
                 if (upConvert(tipo2) == "NINGUNO") {tipo2 = "";}
 
-                cout << "HP: ";
-                cin >> hp;
+                do {
+                    cout << "HP: ";
+                    cin >> hp;
 
+                    if (hp <= 0) {
+                        cout << "El HP debe ser mayor que 0" << endl;
+                    }
+                } while (hp <= 0);
+                
                 cout << "Mote " << "(Ninguno para usar la especie): ";
                 cin >> mote;
 
                 if (upConvert(mote) == "NINGUNO") {mote = "";}
 
-                cout << "Nivel: ";
-                cin >> lv;
+                do {
+                    cout << "Nivel: ";
+                    cin >> lv;
+
+                    if (lv < 1 || lv > 100) {
+                        cout << "El nivel debe estar entre 1 y 100" << endl;
+                    }
+                } while (lv < 1 || lv > 100);
 
                 PokeCapturado nuevo(id, nomb, tipo1, tipo2, hp, mote, lv,
                 pc.getCajaActual());

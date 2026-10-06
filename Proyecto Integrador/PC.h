@@ -33,8 +33,9 @@ private:
     int, int);
     int poke_por_caja(const string&);
     Nodo* buscar_caja(const string&);
-    void agregar_cajas(const string&);
+    bool agregar_cajas(const string&);
     void limpiar_cajas();
+    bool cambiar_caja(const string&);
     
 public:
     PC(const string& nombre = "");
@@ -49,7 +50,6 @@ public:
 
     void crear_caja(const string&);
     void renombrar_caja(const string&);
-    bool cambiar_caja(const string&);
     void siguiente_caja();
     void caja_anterior();
 
@@ -71,6 +71,7 @@ class Nodo {
 private:
     string nombre;
     Nodo *siguiente;
+    Nodo *anterior;
 
     Nodo(const string&);
 
