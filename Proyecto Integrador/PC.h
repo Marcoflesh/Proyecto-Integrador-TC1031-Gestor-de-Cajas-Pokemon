@@ -31,6 +31,7 @@ private:
     int, int, int);
     void merge_split(vector<PokeCapturado>& a, vector<PokeCapturado>& b,
     int, int);
+    vector<PokeCapturado> merge_sort(const vector<PokeCapturado>&);
     int poke_por_caja(const string&);
     Nodo* buscar_caja(const string&);
     bool agregar_cajas(const string&);
@@ -58,12 +59,11 @@ public:
     void crear_jugador(const string&);
 
     void mostrar_caja();
-    void seleccionar_nombre(const string&);
     void mover_poke_caja(const string&, const string&);
     void agregar_pokemon(PokeCapturado&);
     void liberar_pokemon(const string&);
+    vector<PokeCapturado> buscar_pokemon(const string&);
 
-    vector<PokeCapturado> merge_sort(const vector<PokeCapturado>&);
     void ordenar_caja();
 };
 

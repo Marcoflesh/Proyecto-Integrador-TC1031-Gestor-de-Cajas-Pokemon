@@ -134,12 +134,10 @@ void PC::renombrar_caja(const string& nombre) {
     if (caja_existente != nullptr && caja_existente != caja_actual) {return;}
 
     string previo = caja_actual->nombre;
-    int poke_actualizado = 0;
 
-    for (unsigned int i = 0; i < inventario.size(); i++) {
+    for (int i = 0; i < inventario.size(); i++) {
         if (inventario[i].getCaja() == previo) {
             inventario[i].setCaja(nombre);
-            poke_actualizado++;
         }
     }
     caja_actual->nombre = nombre;
@@ -354,6 +352,40 @@ void PC::ordenar_caja() {
     cout << "Se ordenó por No. de la Pokedex." << endl;
 }
 
+vector<PokeCapturado> PC::buscar_pokemon(const string& name) {
+    vector<PokeCapturado> encontrados;
+    if (name.empty()) {return encontrados;}
+
+    string busqueda = upConvert(name);
+
+    for (int i = 0; i < inventario.size(); i++) {
+        string mote = upConvert(inventario[i].getMote());
+        string poke = upConvert(inventario[i].getNombre());
+
+        if (mote == busqueda && mote != poke) {
+            encontrados.push_back(inventario[i]);
+            break;
+        }
+    }
+
+    if (encontrados.empty()) {
+        for (int i = 0; i < inventario.size(); i++) {
+            if (upConvert(inventario[i].getNombre()) == busqueda) {
+                encontrados.push_back(inventario[i]);
+            }
+        }
+    }
+    if (encontrados.empty()) {return encontrados;}
+    cout << "Pokemón encontrados:" << endl;
+    
+    for (int i = 0; i < encontrados.size(); i++) {
+        cout << "[" << i << "]" << encontrados[i].getMote()
+            << " | Nivel " << encontrados[i].getLv() << " | Caja: "
+            << encontrados[i].getCaja() << endl;
+    }
+    return encontrados;
+}
+
 void PC::mostrar_caja() {
     string actual = getCajaActual();
 
@@ -416,21 +448,6 @@ void PC::mostrar_caja() {
         cout << "|" << endl;
         cout << borde << endl;
     }
-}
-
-void PC::seleccionar_nombre(const string& nombre) {
-    string actual = getCajaActual();
-    string busqueda = upConvert(nombre);
-
-    for (int i = 0; i < inventario.size(); i++) {
-        if (inventario[i].getCaja() == actual && (
-            upConvert(inventario[i].getMote()) == busqueda || 
-            upConvert(inventario[i].getNombre()) == busqueda)) {
-                inventario[i].mostrar_info();
-                return;
-        }
-    }
-    cout << "No se encontró ningún " << nombre << " En esta caja" << endl;
 }
 
 void PC::mover_poke_caja(const string& nombre, const string& name_destino) {

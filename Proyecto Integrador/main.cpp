@@ -107,7 +107,7 @@ void menu(PC& pc, const string& archivo) {
         cout << "[L] Liberar Pokemon" << endl;
         cout << "[C] Crear nueva caja" << endl;
         cout << "[M] Mover Pokemon a otra caja" << endl;
-        cout << "[B] Buscar Pokemon en esta caja" << endl;
+        cout << "[B] Buscar Pokemon" << endl;
         cout << "[R] Renombrar caja actual" << endl;
         cout << "[G] Guardar y cerrar sesion" << endl;
         cout << "Opcion: ";
@@ -234,9 +234,20 @@ void menu(PC& pc, const string& archivo) {
                 string nombre;
 
                 cout << "Nombre o mote del pokemon: ";
-                cin >> nombre;
+                cin.ignore();
+                getline(cin, nombre);
 
-                pc.seleccionar_nombre(nombre);
+                vector<PokeCapturado> encontrados = pc.buscar_pokemon(nombre);
+                if (encontrados.empty()) {break;}
+                
+                int opcion = 0;
+
+                cout << "Selecciona un Pokemón: ";
+                cin >> opcion;
+
+                if (opcion > encontrados.size()) {break;}
+
+                encontrados[opcion].mostrar_info();
                 break;
             }
 
