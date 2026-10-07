@@ -9,6 +9,7 @@
 using namespace std;
 
 void menu(PC&, const string&);
+void menu_info(PokeCapturado&);
 
 int main() {
 
@@ -247,7 +248,7 @@ void menu(PC& pc, const string& archivo) {
 
                 if (opcion > encontrados.size()) {break;}
 
-                encontrados[opcion].mostrar_info();
+                menu_info(encontrados[opcion]);
                 break;
             }
 
@@ -270,4 +271,20 @@ void menu(PC& pc, const string& archivo) {
         }
     } 
     while (!close);
+}
+
+void menu_info(PokeCapturado& pokemon) {
+    pokemon.mostrar_info();
+
+    string opcion;
+
+    do {
+        cout << "[S] Regresar a la caja" << endl;
+        cout << "Opción: "; 
+        cin >> opcion;
+
+        if (upConvert(opcion) != "S") {
+            cout << "Opción no válida" << endl;
+        }
+    } while (upConvert(opcion) != "S");
 }
