@@ -9,8 +9,6 @@ using namespace std;
 
 class Nodo;
 
-string upConvert(const string&);
-
 class PC {
 private:
     vector<PokeCapturado> inventario;

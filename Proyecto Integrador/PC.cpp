@@ -6,14 +6,6 @@
 
 using namespace std;
 
-string upConvert(const string& text) {
-    string copia = text;
-    for (int i = 0; i < copia.length(); i++) {
-        copia[i] = toupper(copia[i]);
-    }
-    return copia;
-}
-
 Nodo::Nodo(const string& nombre) : nombre(nombre), siguiente(nullptr), 
     anterior(nullptr) {}
 
