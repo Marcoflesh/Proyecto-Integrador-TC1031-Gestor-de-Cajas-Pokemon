@@ -2,12 +2,9 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
-#include <iomanip>
+#include <iomanip> // Utilizada para darle formato visual a las cajas
 
 using namespace std;
-
-Nodo::Nodo(const string& nombre) : nombre(nombre), siguiente(nullptr), 
-    anterior(nullptr) {}
 
 PC::PC(const string& nombre) : nombre(nombre), 
     primera_caja(nullptr), caja_actual(nullptr) {}
@@ -35,62 +32,6 @@ vector<string> PC::getCajas() {
 void PC::setCajaActual(string& nueva_caja) {cambiar_caja(nueva_caja);}
 void PC::setNombre(string& nuevo_nombre) {nombre = nuevo_nombre;}
 
-Nodo* PC::buscar_caja(const string& nombre) {
-    if (primera_caja == nullptr || nombre.empty()) {return nullptr;}
-
-    string busqueda = upConvert(nombre);
-    Nodo* p = primera_caja;
-    
-    do {
-        if (upConvert(p->nombre) == busqueda) {
-            return p;
-        }
-        p = p->siguiente;
-    } while(p != primera_caja);
-
-    return nullptr;
-}
-
-void PC::limpiar_cajas() {
-    if (primera_caja == nullptr) {
-        caja_actual = nullptr;
-        return;
-    }
-    Nodo* p = primera_caja->siguiente;
-
-    while (p != primera_caja) {
-        Nodo* siguiente = p->siguiente;
-        delete p;
-        p = siguiente;
-    }
-    delete primera_caja;
-    primera_caja = nullptr;
-    caja_actual = nullptr;
-}
-
-bool PC::agregar_cajas(const string& nueva){
-    if(nueva.empty() || buscar_caja(nueva) != nullptr) {return false;}
-
-    Nodo* nuevo = new Nodo(nueva);
-
-    if (primera_caja == nullptr) {
-        primera_caja = nuevo;
-        caja_actual  = nuevo;
-
-        nuevo->anterior = nuevo;
-        nuevo->siguiente = nuevo;
-
-        return true;
-    }
-    Nodo* ultima_caja = primera_caja->anterior;
-    
-    ultima_caja->siguiente = nuevo;
-    nuevo->anterior = ultima_caja;
-    nuevo->siguiente = primera_caja;
-    primera_caja->anterior = nuevo;
-
-    return true;
-}
 
 void PC::crear_caja(const string& nueva) {
     if(nueva.empty()) {return;}
@@ -135,18 +76,28 @@ void PC::renombrar_caja(const string& nombre) {
     caja_actual->nombre = nombre;
 }
 
-int PC::poke_por_caja(const string& nombre) {
-    int cantidad = 0;
-    int i = 0;
+void PC::siguiente_caja() {
+    if (primera_caja == nullptr) return;
 
-    while (i < inventario.size()) {
-        if (inventario[i].getCaja() == nombre) {
-            cantidad++;
-        }
-        i++;
+    if (caja_actual == nullptr) {
+        caja_actual = primera_caja;
+        return;
     }
-    return cantidad;
+
+    caja_actual = caja_actual->siguiente;
 }
+
+void PC::caja_anterior() {
+    if (primera_caja == nullptr) {return;}
+
+    if (caja_actual == nullptr) {
+        caja_actual = primera_caja;
+        return;
+    }
+
+    caja_actual = caja_actual->anterior;
+}
+
 
 void PC::cargar_csv(const string& file){
     inventario.clear();
@@ -253,130 +204,6 @@ void PC::crear_jugador(const string& file) {
     archivo.close();
 }
 
-void PC::copy_array(vector<PokeCapturado>& a, vector<PokeCapturado>& b, 
-    int low, int high) {
-    for (int i = low; i <= high; i++) {
-        a[i] = b[i];
-    }
-}
-
-void PC::merge_array(vector<PokeCapturado>& a, vector<PokeCapturado>& b,
-    int low, int mid, int high) {
-
-    int i = low;
-    int j = mid + 1;
-    int k = low;
-
-    while (i <= mid && j <= high) {
-        if (a[i].getID() <= a[j].getID()) {
-            b[k] = a[i];
-            i++;
-        } else {
-            b[k] = a[j];
-            j++;
-        }
-        k++;
-    }
-
-    if (i > mid) {
-        while (j <= high) {
-            b[k++] = a[j];
-            j++;
-        }
-    } else {
-        while (i <= mid) {
-            b[k++] = a[i];
-            i++;
-        }
-    }
-}
-
-void PC::merge_split(vector<PokeCapturado>& a, vector<PokeCapturado>& b,
-    int low, int high) {
-    
-    if ((high - low) < 1) {
-        return;
-    }
-
-    int mid = low + (high - low) / 2;
-
-    merge_split(a, b, low, mid);
-    merge_split(a, b, mid + 1, high);
-    merge_array(a, b, low, mid, high);
-    copy_array(a, b, low, high);
-}
-
-vector<PokeCapturado> PC::merge_sort(const vector<PokeCapturado>& source) {
-    if (source.empty()) return source;
-
-    vector<PokeCapturado> v(source);
-    vector<PokeCapturado> tmp(v.size());
-
-    merge_split(v, tmp, 0, v.size() - 1);
-    return v;
-}
-
-void PC::ordenar_caja() {
-    string actual = getCajaActual();
-
-    if (actual.empty()) {return;}
-
-    vector<PokeCapturado> esta_caja;
-    vector<PokeCapturado> otra_caja;
-
-    for(int i = 0; i < inventario.size(); i++) {
-        if (inventario[i].getCaja() == actual) {
-            esta_caja.push_back(inventario[i]);
-        } else {
-            otra_caja.push_back(inventario[i]);
-        }
-    }
-
-    if (esta_caja.empty()) {return;}
-
-    esta_caja = merge_sort(esta_caja);
-    inventario = otra_caja;
-
-    for (int i = 0; i < esta_caja.size(); i++){
-        inventario.push_back(esta_caja[i]);
-    }
-
-    cout << "Se ordenó por No. de la Pokedex." << endl;
-}
-
-vector<PokeCapturado> PC::buscar_pokemon(const string& name) {
-    vector<PokeCapturado> encontrados;
-    if (name.empty()) {return encontrados;}
-
-    string busqueda = upConvert(name);
-
-    for (int i = 0; i < inventario.size(); i++) {
-        string mote = upConvert(inventario[i].getMote());
-        string poke = upConvert(inventario[i].getNombre());
-
-        if (mote == busqueda && mote != poke) {
-            encontrados.push_back(inventario[i]);
-            break;
-        }
-    }
-
-    if (encontrados.empty()) {
-        for (int i = 0; i < inventario.size(); i++) {
-            if (upConvert(inventario[i].getNombre()) == busqueda) {
-                encontrados.push_back(inventario[i]);
-            }
-        }
-    }
-    if (encontrados.empty()) {return encontrados;}
-    cout << "Pokemón encontrados:" << endl;
-    
-    for (int i = 0; i < encontrados.size(); i++) {
-        cout << "[" << i << "]" << encontrados[i].getMote()
-            << " | Nivel " << encontrados[i].getLv() << " | Caja: "
-            << encontrados[i].getCaja() << endl;
-    }
-    return encontrados;
-}
 
 void PC::mostrar_caja() {
     string actual = getCajaActual();
@@ -505,6 +332,202 @@ void PC::liberar_pokemon(const string& nombre) {
     cout << "No se encontró a " << nombre << " en esta caja" << endl;
 }
 
+vector<PokeCapturado> PC::buscar_pokemon(const string& name) {
+    vector<PokeCapturado> encontrados;
+    if (name.empty()) {return encontrados;}
+
+    string busqueda = upConvert(name);
+
+    for (int i = 0; i < inventario.size(); i++) {
+        string mote = upConvert(inventario[i].getMote());
+        string poke = upConvert(inventario[i].getNombre());
+
+        if (mote == busqueda && mote != poke) {
+            encontrados.push_back(inventario[i]);
+            break;
+        }
+    }
+
+    if (encontrados.empty()) {
+        for (int i = 0; i < inventario.size(); i++) {
+            if (upConvert(inventario[i].getNombre()) == busqueda) {
+                encontrados.push_back(inventario[i]);
+            }
+        }
+    }
+    if (encontrados.empty()) {return encontrados;}
+    cout << "Pokemón encontrados:" << endl;
+    
+    for (int i = 0; i < encontrados.size(); i++) {
+        cout << "[" << i << "]" << encontrados[i].getMote()
+            << " | Nivel " << encontrados[i].getLv() << " | Caja: "
+            << encontrados[i].getCaja() << endl;
+    }
+    return encontrados;
+}
+
+void PC::ordenar_caja() {
+    string actual = getCajaActual();
+
+    if (actual.empty()) {return;}
+
+    vector<PokeCapturado> esta_caja;
+    vector<PokeCapturado> otra_caja;
+
+    for(int i = 0; i < inventario.size(); i++) {
+        if (inventario[i].getCaja() == actual) {
+            esta_caja.push_back(inventario[i]);
+        } else {
+            otra_caja.push_back(inventario[i]);
+        }
+    }
+
+    if (esta_caja.empty()) {return;}
+
+    esta_caja = merge_sort(esta_caja);
+    inventario = otra_caja;
+
+    for (int i = 0; i < esta_caja.size(); i++){
+        inventario.push_back(esta_caja[i]);
+    }
+
+    cout << "Se ordenó por No. de la Pokedex." << endl;
+}
+
+
+void PC::copy_array(vector<PokeCapturado>& a, vector<PokeCapturado>& b, 
+    int low, int high) {
+    for (int i = low; i <= high; i++) {
+        a[i] = b[i];
+    }
+}
+
+void PC::merge_array(vector<PokeCapturado>& a, vector<PokeCapturado>& b,
+    int low, int mid, int high) {
+
+    int i = low;
+    int j = mid + 1;
+    int k = low;
+
+    while (i <= mid && j <= high) {
+        if (a[i].getID() <= a[j].getID()) {
+            b[k] = a[i];
+            i++;
+        } else {
+            b[k] = a[j];
+            j++;
+        }
+        k++;
+    }
+
+    if (i > mid) {
+        while (j <= high) {
+            b[k++] = a[j];
+            j++;
+        }
+    } else {
+        while (i <= mid) {
+            b[k++] = a[i];
+            i++;
+        }
+    }
+}
+
+void PC::merge_split(vector<PokeCapturado>& a, vector<PokeCapturado>& b,
+    int low, int high) {
+    
+    if ((high - low) < 1) {
+        return;
+    }
+
+    int mid = low + (high - low) / 2;
+
+    merge_split(a, b, low, mid);
+    merge_split(a, b, mid + 1, high);
+    merge_array(a, b, low, mid, high);
+    copy_array(a, b, low, high);
+}
+
+vector<PokeCapturado> PC::merge_sort(const vector<PokeCapturado>& source) {
+    if (source.empty()) return source;
+
+    vector<PokeCapturado> v(source);
+    vector<PokeCapturado> tmp(v.size());
+
+    merge_split(v, tmp, 0, v.size() - 1);
+    return v;
+}
+
+int PC::poke_por_caja(const string& nombre) {
+    int cantidad = 0;
+    int i = 0;
+
+    while (i < inventario.size()) {
+        if (inventario[i].getCaja() == nombre) {
+            cantidad++;
+        }
+        i++;
+    }
+    return cantidad;
+}
+
+Nodo* PC::buscar_caja(const string& nombre) {
+    if (primera_caja == nullptr || nombre.empty()) {return nullptr;}
+
+    string busqueda = upConvert(nombre);
+    Nodo* p = primera_caja;
+    
+    do {
+        if (upConvert(p->nombre) == busqueda) {
+            return p;
+        }
+        p = p->siguiente;
+    } while(p != primera_caja);
+
+    return nullptr;
+}
+
+bool PC::agregar_cajas(const string& nueva){
+    if(nueva.empty() || buscar_caja(nueva) != nullptr) {return false;}
+
+    Nodo* nuevo = new Nodo(nueva);
+
+    if (primera_caja == nullptr) {
+        primera_caja = nuevo;
+        caja_actual  = nuevo;
+
+        nuevo->anterior = nuevo;
+        nuevo->siguiente = nuevo;
+
+        return true;
+    }
+    Nodo* ultima_caja = primera_caja->anterior;
+    
+    ultima_caja->siguiente = nuevo;
+    nuevo->anterior = ultima_caja;
+    nuevo->siguiente = primera_caja;
+    primera_caja->anterior = nuevo;
+
+    return true;
+}
+
+void PC::limpiar_cajas() {
+    if (primera_caja == nullptr) {
+        caja_actual = nullptr;
+        return;
+    }
+    Nodo* p = primera_caja->siguiente;
+
+    while (p != primera_caja) {
+        Nodo* siguiente = p->siguiente;
+        delete p;
+        p = siguiente;
+    }
+    delete primera_caja;
+    primera_caja = nullptr;
+    caja_actual = nullptr;
+}
+
 bool PC::cambiar_caja(const string& nombre) {
     Nodo* found = buscar_caja(nombre);
 
@@ -514,27 +537,6 @@ bool PC::cambiar_caja(const string& nombre) {
     return true;
 }
 
-void PC::siguiente_caja() {
-    if (primera_caja == nullptr) return;
 
-    if (caja_actual == nullptr) {
-        caja_actual = primera_caja;
-        return;
-    }
-
-    caja_actual = caja_actual->siguiente;
-}
-
-void PC::caja_anterior() {
-    if (primera_caja == nullptr) {return;}
-
-    if (caja_actual == nullptr) {
-        caja_actual = primera_caja;
-        return;
-    }
-
-    caja_actual = caja_actual->anterior;
-}
-
-
-//https://stackoverflow.com/questions/32929977/method-that-converts-string-to-upper-case
+Nodo::Nodo(const string& nombre) : nombre(nombre), siguiente(nullptr), 
+    anterior(nullptr) {}

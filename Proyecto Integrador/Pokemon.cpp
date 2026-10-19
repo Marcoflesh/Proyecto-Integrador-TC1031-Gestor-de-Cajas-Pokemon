@@ -32,6 +32,16 @@ string Pokemon::getTipo(int puesto) {
     return "";
 }
 
+void Pokemon::mostrar_info() {
+    cout << "\n==================================\n";
+    cout << "Info del Pokemón: " << nom_especie << endl;
+    cout << "\n==================================\n";
+    cout << "No. Pokedex:  #" << id_dex << endl;
+    cout << "Tipos:        " << tipo1;
+    if (!tipo2.empty()) {cout << " / " << tipo2;} cout << endl;
+    cout << "\n==================================\n";
+}
+
 PokeCapturado::PokeCapturado(int id, const string nomb, const string& t1, 
     const string& t2, int hp, const string& nick, int lv, const string& box) 
     : Pokemon(id, nomb, t1, t2, hp), mote(nick.empty() ? nomb : nick), 
@@ -44,35 +54,22 @@ string PokeCapturado::getCaja() {return caja;}
 void PokeCapturado::setNivel(int nuevo_nivel) {nivel = nuevo_nivel;}
 void PokeCapturado::setCaja(string nueva_caja) {caja = nueva_caja;}
 
-void Pokemon::mostrar_info() {
+void PokeCapturado::mostrar_info() {
     cout << "\n==================================\n";
-    cout << "Info del Pokemón: " << nom_especie << endl;
+    cout << "Info del Pokemón: " << mote << endl;
     cout << "\n==================================\n";
+    cout << "Nombre:      " << nom_especie << endl;
     cout << "No. Pokedex:  #" << id_dex << endl;
     cout << "Tipos:        " << tipo1;
     if (!tipo2.empty()) {cout << " / " << tipo2;} cout << endl;
+    cout << "HP:           " << hp << endl;
+    cout << "Nivel:        " << nivel << endl;
+    cout << "Caja actual:  " << caja << endl;
     cout << "\n==================================\n";
 }
 
 NodoPokedex::NodoPokedex(const Pokemon& pokemon) : dato(pokemon), left(nullptr), 
     right(nullptr) {}
-
-NodoPokedex* Pokedex::insertar(NodoPokedex* nodo, const Pokemon& pokemon) {
-    if (nodo == nullptr) {return new NodoPokedex(pokemon);}
-
-    string nuevo = upConvert(pokemon.getNombre());
-    string actual = upConvert(nodo->dato.getNombre());
-
-    if (nuevo < actual) {
-        nodo->left = insertar(nodo->left, pokemon);
-    }
-    else if (nuevo > actual) {
-        nodo->right = insertar(nodo->right, pokemon);
-    }
-    return nodo;
-}
-
-Pokedex::Pokedex(const string& file) : raiz(0) {cargar_pokedex(file);}
 
 void Pokedex::cargar_pokedex(const string& file) {
     ifstream archivo(file);
@@ -122,18 +119,19 @@ void Pokedex::cargar_pokedex(const string& file) {
     archivo.close();
 }
 
-void Pokedex::limpiar(NodoPokedex* nodo) {
-    if (nodo == nullptr) return;
+NodoPokedex* Pokedex::insertar(NodoPokedex* nodo, const Pokemon& pokemon) {
+    if (nodo == nullptr) {return new NodoPokedex(pokemon);}
 
-    limpiar(nodo->left);
-    limpiar(nodo->right);
+    string nuevo = upConvert(pokemon.getNombre());
+    string actual = upConvert(nodo->dato.getNombre());
 
-    delete nodo;
-}
-
-Pokedex::~Pokedex() {
-    limpiar(raiz);
-    raiz = nullptr;
+    if (nuevo < actual) {
+        nodo->left = insertar(nodo->left, pokemon);
+    }
+    else if (nuevo > actual) {
+        nodo->right = insertar(nodo->right, pokemon);
+    }
+    return nodo;
 }
 
 NodoPokedex* Pokedex::buscar_nodo(NodoPokedex* nodo, const string& nombre) {
@@ -151,14 +149,6 @@ NodoPokedex* Pokedex::buscar_nodo(NodoPokedex* nodo, const string& nombre) {
     return buscar_nodo(nodo->right, nombre);
 }
 
-Pokemon* Pokedex::buscar_pokemon(const string& nombre) {
-    if (nombre.empty()) return 0;
-
-    NodoPokedex* encontrado = buscar_nodo(raiz, nombre);
-    if (encontrado == nullptr) return nullptr;
-    return &(encontrado->dato);
-}
-
 void Pokedex::inorder(NodoPokedex* nodo, vector<Pokemon>& lista) {
     if (nodo == 0) return;
 
@@ -167,22 +157,32 @@ void Pokedex::inorder(NodoPokedex* nodo, vector<Pokemon>& lista) {
     inorder(nodo->right, lista);
 }
 
+void Pokedex::limpiar(NodoPokedex* nodo) {
+    if (nodo == nullptr) return;
+
+    limpiar(nodo->left);
+    limpiar(nodo->right);
+
+    delete nodo;
+}
+
+Pokedex::Pokedex(const string& file) : raiz(0) {cargar_pokedex(file);}
+
+Pokedex::~Pokedex() {
+    limpiar(raiz);
+    raiz = nullptr;
+}
+
+Pokemon* Pokedex::buscar_pokemon(const string& nombre) {
+    if (nombre.empty()) return 0;
+
+    NodoPokedex* encontrado = buscar_nodo(raiz, nombre);
+    if (encontrado == nullptr) return nullptr;
+    return &(encontrado->dato);
+}
+
 vector<Pokemon> Pokedex::visit() {
     vector<Pokemon> lista;
     inorder(raiz, lista);
     return lista;
-}
-
-void PokeCapturado::mostrar_info() {
-    cout << "\n==================================\n";
-    cout << "Info del Pokemón: " << mote << endl;
-    cout << "\n==================================\n";
-    cout << "Nombre:      " << nom_especie << endl;
-    cout << "No. Pokedex:  #" << id_dex << endl;
-    cout << "Tipos:        " << tipo1;
-    if (!tipo2.empty()) {cout << " / " << tipo2;} cout << endl;
-    cout << "HP:           " << hp << endl;
-    cout << "Nivel:        " << nivel << endl;
-    cout << "Caja actual:  " << caja << endl;
-    cout << "\n==================================\n";
 }
