@@ -24,6 +24,7 @@ public:
     string getNombre() const;
     string getTipo();
     string getTipo(int);
+    // complejidad: O(1)
     void mostrar_info();
 };
 
@@ -45,6 +46,7 @@ public:
     void setNivel(int nuevo_nivel);
     void setCaja(string nueva_caja);
 
+    // Complejidad O(1)
     void mostrar_info();
 };
 
@@ -64,16 +66,23 @@ class Pokedex {
 private:
     NodoPokedex* raiz;
 
+    // Complejidad: O(n log n)
     void cargar_pokedex(const string&);
+    // Complejidad: O(log n)
     NodoPokedex* insertar(NodoPokedex*, const Pokemon&);
+    // Complejidad: O(log n) 
     NodoPokedex* buscar_nodo(NodoPokedex*, const string&);
+    // Complejidad: O(n)
     void inorder(NodoPokedex*, vector<Pokemon>&);
+    // Complejidad O(n)
     void limpiar(NodoPokedex*);
 
 public:
     Pokedex(const string& archivo = "pokedex_completa.txt");
     ~Pokedex();
+    // Complejidad: O(log n), peor caso O(n)
     Pokemon* buscar_pokemon(const string&);
+    // Complejidad O(n)
     vector<Pokemon> visit();
 };
 
