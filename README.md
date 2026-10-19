@@ -5,10 +5,7 @@
 ## Descripción
 Este es un proyecto en C++ en el cual el usuario tiene su equipo Pokémon y puede almacenarlo dentro de un sistema de cajas similar al de los videojuegos de las consolas de Nintendo. El programa permite gestionar perfiles de jugadores, navegar entre cajas de almacenamiento, consultar una Pokédex completa, ordenar los Pokémon almacenados, realizar búsquedas por nombre o mote y guardar los cambios en archivos de texto.
 
-## Problema que resuelve
-Dentro de los juegos de Pokémon, un jugador puede capturar cientos de criaturas a lo largo de su partida. Cuando el inventario crece, resulta difícil localizar a un Pokémon específico, organizar las cajas por número de registro, consultar los tipos elementales de cada especie o transferir ejemplares de un contenedor a otro sin perder sus datos. Este sistema resuelve ese problema organizando el almacenamiento en estructuras de datos que permiten navegar entre cajas en tiempo constante, validar las especies contra una Pokédex oficial y mantener los datos persistentes entre sesiones.
-
-## Decisiones sobre las tecnologías y estructuras implementadas
+## Tecnologías y estructuras implementadas
 Para el desarrollo del proyecto se tomaron las siguientes decisiones técnicas:
 
 1. **Lista Doblemente Ligada Circular para las cajas (`Nodo` en `PC`):** En los videojuegos de Pokémon, al avanzar más allá de la última caja el jugador regresa automáticamente a la primera, y al retroeder desde la primera pasa a la última. Se eligió una lista doblemente ligada circular porque modela este comportamiento de forma natural: cada nodo apunta a su caja `siguiente` y `anterior`, logrando que el cambio de caja (`[A]` y `[D]`) ocurra en tiempo constante $O(1)$ sin importar cuántas cajas existan.
@@ -16,7 +13,7 @@ Para el desarrollo del proyecto se tomaron las siguientes decisiones técnicas:
 3. **Vector dinámico (`vector<PokeCapturado>`) para el inventario:** Se utilizó un `vector` para almacenar los Pokémon capturados del jugador porque facilita el acceso indexado en O(1) al dibujar la cuadrícula de 6x5 y permite aplicar el algoritmo de ordenamiento `Merge Sort` sobre arreglos pegados.
 4. **Persistencia con archivos CSV/TXT y archivos temporales:** Se eligió el formato separado por comas en texto plano porque es ligero y fácil de inspeccionar en cualquier editor. Para la escritura se implementó un esquema de archivo temporal (`.temp`) seguido de `remove()` y `rename()`, evitando que el archivo original se corrompa si el programa se interrumpe a mitad del guardado. Para la generación de estos archivos se utilizó la ayuda de IA generativa para poder realizar los documentos en el formato requerido de una manera más simple y uniforme. Los archivos generados con IA son `Ash.txt`, `Red.txt` y `pokedex_completa.txt`. 
 
-## Estructuras de datos utilizadas y análisis de complejidad
+## Estructuras de datos utilizadas
 
 ### 1. Lista Doblemente Ligada Circular (`Nodo` y `PC`)
 Cada caja de almacenamiento está representada por un objeto de la clase `Nodo` con su nombre y dos punteros (`siguiente` y `anterior`). La clase `PC` mantiene los punteros `primera_caja` y `caja_actual`.
