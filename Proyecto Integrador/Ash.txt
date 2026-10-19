@@ -1,44 +1,402 @@
-CAJAS:Caja 1,Caja 2,Shinys,Legendarios
-6,Charizard,Fuego,Volador,78,Charizard,36,Caja 2
-94,Gengar,Fantasma,Veneno,60,Sombra,38,Caja 2
-143,Snorlax,Normal,,160,Snorlax,40,Caja 2
-68,Machamp,Lucha,,90,Machamp,44,Caja 2
-9,Blastoise,Agua,,79,Blastoise,41,Caja 2
-131,Lapras,Agua,Hielo,130,Nessie,35,Caja 2
-65,Alakazam,Psiquico,,55,Alakazam,45,Caja 2
-149,Dragonite,Dragon,Volador,91,Dragonite,55,Caja 2
-144,Articuno,Hielo,Volador,90,Articuno,50,Legendarios
-145,Zapdos,Electrico,Volador,90,Zapdos,50,Legendarios
-146,Moltres,Fuego,Volador,90,Moltres,50,Legendarios
-37,Vulpix,Fuego,,38,Cenizas,25,Shinys
-54,Psyduck,Agua,,50,Dorado,27,Shinys
-123,Scyther,Bicho,Volador,70,Filo,33,Shinys
-130,Gyarados,Agua,Volador,95,Rojito,30,Shinys
-1,Bulbasaur,Planta,Veneno,45,Bulbasaur,13,Caja 1
-4,Charmander,Fuego,,39,Charmander,12,Caja 1
-7,Squirtle,Agua,,44,Tortuga,17,Caja 1
-10,Caterpie,Bicho,,45,Caterpie,3,Caja 1
-16,Pidgey,Normal,Volador,40,Pidgey,7,Caja 1
-16,Pidgey,Normal,Volador,40,Vientito,16,Caja 1
-19,Rattata,Normal,,30,Rattata,4,Caja 1
-19,Rattata,Normal,,30,Colmillos,9,Caja 1
-25,Pikachu,Electrico,,35,Pikachu,28,Caja 1
-25,Pikachu,Electrico,,35,Chispa,15,Caja 1
-27,Sandshrew,Tierra,,50,Sandshrew,21,Caja 1
-39,Jigglypuff,Normal,,115,Jiggly,26,Caja 1
-41,Zubat,Veneno,Volador,40,Zubat,11,Caja 1
-50,Diglett,Tierra,,10,Diglett,14,Caja 1
-58,Growlithe,Fuego,,55,Growlithe,24,Caja 1
-60,Poliwag,Agua,,40,Poliwag,12,Caja 1
-63,Abra,Psiquico,,25,Abra,9,Caja 1
-66,Machop,Lucha,,70,Machop,19,Caja 1
-74,Geodude,Roca,Tierra,40,Piedrita,15,Caja 1
-88,Grimer,Veneno,,80,Grimer,20,Caja 1
-92,Gastly,Fantasma,Veneno,30,Gastly,22,Caja 1
-98,Krabby,Agua,,30,Krabby,10,Caja 1
-100,Voltorb,Electrico,,40,Voltorb,17,Caja 1
-104,Cubone,Tierra,,50,Cubone,23,Caja 1
-129,Magikarp,Agua,,20,Magikarp,5,Caja 1
-133,Eevee,Normal,,55,Eevee,20,Caja 1
-147,Dratini,Dragon,,41,Dratini,10,Caja 1
-152,Chikorita,Planta,,23,Canela,2,Caja 1
+CAJAS:Caja 1,Caja 2,Shinys,Legendarios,Kanto,Johto,Hoenn,Sinnoh,Teselia,Kalos,Alola,Galar,Paldea,Iniciales,Competitivo,Equipo Campeon
+129,Magikarp,Agua,,20,Magikarp,44,Caja 1
+58,Growlithe,Fuego,,55,Titan,25,Caja 1
+27,Sandshrew,Tierra,,50,Sandshrew,64,Caja 1
+39,Jigglypuff,Normal,Hada,115,Excalibur,60,Caja 1
+43,Oddish,Planta,Veneno,45,Oddish,44,Caja 1
+98,Krabby,Agua,,30,Vulcano,18,Caja 1
+79,Slowpoke,Agua,Psiquico,90,Slowpoke,51,Caja 1
+7,Squirtle,Agua,,44,Chispa,33,Caja 1
+104,Cubone,Tierra,,50,Cubone,10,Caja 1
+4,Charmander,Fuego,,39,Sombra,23,Caja 1
+63,Abra,Psiquico,,25,Abra,32,Caja 1
+16,Pidgey,Normal,Volador,40,Piedrita,18,Caja 1
+19,Rattata,Normal,,30,Rattata,47,Caja 1
+25,Pikachu,Electrico,,35,Rayo,41,Caja 1
+19,Rattata,Normal,,30,Rattata,11,Caja 1
+92,Gastly,Fantasma,Veneno,30,Tormenta,39,Caja 1
+74,Geodude,Roca,Tierra,40,Geodude,3,Caja 1
+10,Caterpie,Bicho,,45,Brasas,21,Caja 1
+133,Eevee,Normal,,55,Eevee,52,Caja 1
+25,Pikachu,Electrico,,35,Garra,18,Caja 1
+16,Pidgey,Normal,Volador,40,Pidgey,60,Caja 1
+41,Zubat,Veneno,Volador,40,Colmillo,41,Caja 1
+52,Meowth,Normal,,40,Meowth,18,Caja 1
+1,Bulbasaur,Planta,Veneno,45,Trueno,50,Caja 1
+66,Machop,Lucha,,70,Machop,11,Caja 1
+60,Poliwag,Agua,,40,Nube,59,Caja 1
+214,Heracross,Bicho,Lucha,80,Heracross,7,Caja 2
+248,Tyranitar,Roca,Siniestro,100,Estrella,15,Caja 2
+68,Machamp,Lucha,,90,Machamp,62,Caja 2
+136,Flareon,Fuego,,65,Rocio,16,Caja 2
+197,Umbreon,Siniestro,,95,Umbreon,6,Caja 2
+9,Blastoise,Agua,,79,Viento,63,Caja 2
+149,Dragonite,Dragon,Volador,91,Dragonite,24,Caja 2
+65,Alakazam,Psiquico,,55,Furia,20,Caja 2
+143,Snorlax,Normal,,160,Snorlax,38,Caja 2
+135,Jolteon,Electrico,,65,Lunita,63,Caja 2
+350,Milotic,Agua,,95,Milotic,47,Caja 2
+227,Skarmory,Acero,Volador,65,Solete,23,Caja 2
+130,Gyarados,Agua,Volador,95,Gyarados,22,Caja 2
+212,Scizor,Bicho,Acero,70,Bola,27,Caja 2
+127,Pinsir,Bicho,,65,Pinsir,56,Caja 2
+94,Gengar,Fantasma,Veneno,60,Cometa,28,Caja 2
+134,Vaporeon,Agua,,130,Vaporeon,70,Caja 2
+282,Gardevoir,Psiquico,Hada,68,Rafaga,18,Caja 2
+131,Lapras,Agua,Hielo,130,Lapras,38,Caja 2
+123,Scyther,Bicho,Volador,70,Nieve,22,Caja 2
+115,Kangaskhan,Normal,,105,Kangaskhan,4,Caja 2
+113,Chansey,Normal,,250,Ola,53,Caja 2
+6,Charizard,Fuego,Volador,78,Charizard,55,Caja 2
+196,Espeon,Psiquico,,65,Puma,7,Caja 2
+635,Hydreigon,Siniestro,Dragon,92,Hydreigon,19,Shinys
+612,Haxorus,Dragon,,76,Pluma,46,Shinys
+658,Greninja,Agua,Siniestro,72,Greninja,52,Shinys
+248,Tyranitar,Roca,Siniestro,100,Fantasmita,45,Shinys
+815,Cinderace,Fuego,,80,Cinderace,36,Shinys
+282,Gardevoir,Psiquico,Hada,68,Reyezuelo,45,Shinys
+130,Gyarados,Agua,Volador,95,Gyarados,21,Shinys
+6,Charizard,Fuego,Volador,78,Campeon,47,Shinys
+257,Blaziken,Fuego,Lucha,80,Blaziken,19,Shinys
+959,Tinkaton,Hada,Acero,85,Centella,34,Shinys
+3,Venusaur,Planta,Veneno,80,Venusaur,52,Shinys
+784,Kommo-o,Dragon,Lucha,75,Ascua,7,Shinys
+887,Dragapult,Dragon,Fantasma,88,Dragapult,65,Shinys
+911,Skeledirge,Fuego,Fantasma,104,Marejada,5,Shinys
+9,Blastoise,Agua,,79,Blastoise,26,Shinys
+681,Aegislash,Acero,Fantasma,60,Vendaval,49,Shinys
+663,Talonflame,Fuego,Volador,78,Talonflame,26,Shinys
+908,Meowscarada,Planta,Siniestro,76,Canica,8,Shinys
+706,Goodra,Dragon,,90,Goodra,44,Shinys
+445,Garchomp,Dragon,Tierra,108,Espina,22,Shinys
+700,Sylveon,Hada,,95,Sylveon,31,Shinys
+849,Toxtricity,Electrico,Veneno,75,Relampago,31,Shinys
+914,Quaquaval,Agua,Lucha,85,Quaquaval,63,Shinys
+1000,Gholdengo,Acero,Fantasma,87,Bruma,18,Shinys
+778,Mimikyu,Fantasma,Hada,55,Mimikyu,51,Shinys
+373,Salamence,Dragon,Volador,95,Duna,69,Shinys
+484,Palkia,Agua,Dragon,90,Palkia,38,Legendarios
+717,Yveltal,Siniestro,Volador,126,Coral,17,Legendarios
+144,Articuno,Hielo,Volador,90,Articuno,31,Legendarios
+487,Giratina,Fantasma,Dragon,150,Vikingo,40,Legendarios
+643,Reshiram,Dragon,Fuego,100,Reshiram,58,Legendarios
+718,Zygarde,Dragon,Tierra,108,Tiza,61,Legendarios
+792,Lunala,Psiquico,Fantasma,137,Lunala,65,Legendarios
+384,Rayquaza,Dragon,Volador,105,Humo,51,Legendarios
+644,Zekrom,Dragon,Electrico,100,Zekrom,32,Legendarios
+889,Zamazenta,Lucha,,92,Brisa,47,Legendarios
+791,Solgaleo,Psiquico,Acero,137,Solgaleo,63,Legendarios
+809,Melmetal,Acero,,135,Meteoro,39,Legendarios
+646,Kyurem,Dragon,Hielo,125,Kyurem,59,Legendarios
+804,Naganadel,Veneno,Dragon,73,Eclipse,12,Legendarios
+146,Moltres,Fuego,Volador,90,Moltres,31,Legendarios
+1007,Koraidon,Lucha,Dragon,100,Tifon,10,Legendarios
+888,Zacian,Hada,,92,Zacian,18,Legendarios
+250,Ho-Oh,Fuego,Volador,106,Avalancha,37,Legendarios
+382,Kyogre,Agua,,100,Kyogre,36,Legendarios
+150,Mewtwo,Psiquico,,106,Ciclon,62,Legendarios
+483,Dialga,Acero,Dragon,100,Dialga,46,Legendarios
+800,Necrozma,Psiquico,,97,Fenix,54,Legendarios
+716,Xerneas,Hada,,126,Xerneas,46,Legendarios
+249,Lugia,Psiquico,Volador,106,Quimera,53,Legendarios
+383,Groudon,Tierra,,100,Groudon,17,Legendarios
+145,Zapdos,Electrico,Volador,90,Obsidiana,64,Legendarios
+890,Eternatus,Veneno,Dragon,140,Eternatus,20,Legendarios
+1008,Miraidon,Electrico,Dragon,100,Zafiro,18,Legendarios
+143,Snorlax,Normal,,160,Snorlax,12,Kanto
+25,Pikachu,Electrico,,35,Onix,30,Kanto
+147,Dratini,Dragon,,41,Dratini,34,Kanto
+1,Bulbasaur,Planta,Veneno,45,Crepusculo,35,Kanto
+120,Staryu,Agua,,30,Staryu,51,Kanto
+74,Geodude,Roca,Tierra,40,Titan,13,Kanto
+4,Charmander,Fuego,,39,Charmander,55,Kanto
+129,Magikarp,Agua,,20,Excalibur,50,Kanto
+123,Scyther,Bicho,Volador,70,Scyther,5,Kanto
+66,Machop,Lucha,,70,Vulcano,63,Kanto
+92,Gastly,Fantasma,Veneno,30,Gastly,43,Kanto
+116,Horsea,Agua,,30,Chispa,37,Kanto
+104,Cubone,Tierra,,50,Cubone,20,Kanto
+133,Eevee,Normal,,55,Sombra,26,Kanto
+37,Vulpix,Fuego,,38,Vulpix,70,Kanto
+58,Growlithe,Fuego,,55,Piedrita,30,Kanto
+52,Meowth,Normal,,40,Meowth,61,Kanto
+7,Squirtle,Agua,,44,Rayo,40,Kanto
+100,Voltorb,Electrico,,40,Voltorb,41,Kanto
+41,Zubat,Veneno,Volador,40,Tormenta,37,Kanto
+95,Onix,Roca,Tierra,35,Onix,39,Kanto
+63,Abra,Psiquico,,25,Brasas,42,Kanto
+79,Slowpoke,Agua,Psiquico,90,Slowpoke,10,Kanto
+131,Lapras,Agua,Hielo,130,Garra,11,Kanto
+220,Swinub,Hielo,Tierra,50,Swinub,8,Johto
+228,Houndour,Siniestro,Fuego,45,Colmillo,59,Johto
+207,Gligar,Tierra,Volador,65,Gligar,48,Johto
+161,Sentret,Normal,,35,Trueno,68,Johto
+233,Porygon2,Normal,,85,Porygon2,63,Johto
+246,Larvitar,Roca,Tierra,50,Nube,58,Johto
+215,Sneasel,Siniestro,Hielo,55,Sneasel,17,Johto
+236,Tyrogue,Lucha,,35,Estrella,31,Johto
+187,Hoppip,Planta,Volador,35,Hoppip,2,Johto
+152,Chikorita,Planta,,45,Rocio,6,Johto
+225,Delibird,Hielo,Volador,45,Delibird,9,Johto
+211,Qwilfish,Agua,Veneno,65,Viento,55,Johto
+175,Togepi,Hada,,35,Togepi,54,Johto
+200,Misdreavus,Fantasma,,60,Furia,34,Johto
+158,Totodile,Agua,,50,Totodile,48,Johto
+194,Wooper,Agua,Tierra,55,Lunita,56,Johto
+179,Mareep,Electrico,,55,Mareep,59,Johto
+170,Chinchou,Agua,Electrico,75,Solete,49,Johto
+213,Shuckle,Bicho,Roca,20,Shuckle,17,Johto
+198,Murkrow,Siniestro,Volador,60,Bola,30,Johto
+185,Sudowoodo,Roca,,70,Sudowoodo,60,Johto
+202,Wobbuffet,Psiquico,,190,Cometa,69,Johto
+155,Cyndaquil,Fuego,,39,Cyndaquil,64,Johto
+183,Marill,Agua,Hada,70,Rafaga,16,Johto
+281,Kirlia,Psiquico,Hada,38,Kirlia,49,Hoenn
+302,Sableye,Siniestro,Fantasma,50,Nieve,25,Hoenn
+252,Treecko,Planta,,40,Treecko,39,Hoenn
+341,Corphish,Agua,,43,Ola,28,Hoenn
+359,Absol,Siniestro,,65,Absol,18,Hoenn
+290,Nincada,Bicho,Tierra,31,Puma,69,Hoenn
+371,Bagon,Dragon,,45,Bagon,53,Hoenn
+307,Meditite,Lucha,Psiquico,30,Pluma,17,Hoenn
+331,Cacnea,Planta,,50,Cacnea,53,Hoenn
+318,Carvanha,Agua,Siniestro,45,Fantasmita,63,Hoenn
+258,Mudkip,Agua,,50,Mudkip,7,Hoenn
+320,Wailmer,Agua,,130,Reyezuelo,7,Hoenn
+304,Aron,Acero,Roca,50,Aron,20,Hoenn
+335,Zangoose,Normal,,73,Campeon,38,Hoenn
+263,Zigzagoon,Normal,,38,Zigzagoon,39,Hoenn
+325,Spoink,Psiquico,,60,Centella,62,Hoenn
+276,Taillow,Normal,Volador,40,Taillow,8,Hoenn
+300,Skitty,Normal,,50,Ascua,22,Hoenn
+357,Tropius,Planta,Volador,99,Tropius,44,Hoenn
+315,Roselia,Planta,Veneno,50,Marejada,40,Hoenn
+255,Torchic,Fuego,,45,Torchic,10,Hoenn
+296,Makuhita,Lucha,,72,Vendaval,25,Hoenn
+270,Lotad,Agua,Planta,40,Lotad,46,Hoenn
+285,Shroomish,Planta,,60,Canica,12,Hoenn
+396,Starly,Normal,Volador,40,Starly,16,Sinnoh
+459,Snover,Planta,Hielo,60,Espina,19,Sinnoh
+410,Shieldon,Roca,Acero,30,Shieldon,58,Sinnoh
+390,Chimchar,Fuego,,44,Relampago,52,Sinnoh
+434,Stunky,Veneno,Siniestro,63,Stunky,51,Sinnoh
+403,Shinx,Electrico,,45,Bruma,42,Sinnoh
+429,Mismagius,Fantasma,,60,Mismagius,43,Sinnoh
+387,Turtwig,Planta,,55,Duna,17,Sinnoh
+436,Bronzor,Acero,Psiquico,57,Bronzor,70,Sinnoh
+420,Cherubi,Planta,,45,Coral,20,Sinnoh
+479,Rotom,Electrico,Fantasma,50,Rotom,63,Sinnoh
+393,Piplup,Agua,,53,Vikingo,67,Sinnoh
+443,Gible,Dragon,Tierra,58,Gible,30,Sinnoh
+425,Drifloon,Fantasma,Volador,90,Tiza,58,Sinnoh
+408,Cranidos,Roca,,67,Cranidos,6,Sinnoh
+439,Mime Jr.,Psiquico,Hada,20,Humo,21,Sinnoh
+467,Magmortar,Fuego,,75,Magmortar,9,Sinnoh
+461,Weavile,Siniestro,Hielo,70,Brisa,7,Sinnoh
+453,Croagunk,Veneno,Lucha,48,Croagunk,55,Sinnoh
+417,Pachirisu,Electrico,,60,Meteoro,20,Sinnoh
+449,Hippopotas,Tierra,,68,Hippopotas,13,Sinnoh
+445,Garchomp,Dragon,Tierra,108,Eclipse,43,Sinnoh
+447,Riolu,Lucha,,40,Riolu,7,Sinnoh
+470,Leafeon,Planta,,65,Tifon,18,Sinnoh
+546,Cottonee,Planta,Hada,40,Cottonee,26,Teselia
+522,Blitzle,Electrico,,45,Avalancha,27,Teselia
+498,Tepig,Fuego,,65,Tepig,62,Teselia
+570,Zorua,Siniestro,,40,Ciclon,49,Teselia
+506,Lillipup,Normal,,45,Lillipup,19,Teselia
+612,Haxorus,Dragon,,76,Fenix,6,Teselia
+579,Reuniclus,Psiquico,,110,Reuniclus,66,Teselia
+534,Conkeldurr,Lucha,,105,Quimera,53,Teselia
+495,Snivy,Planta,,45,Snivy,50,Teselia
+549,Lilligant,Planta,,70,Obsidiana,21,Teselia
+550,Basculin,Agua,,70,Basculin,10,Teselia
+588,Karrablast,Bicho,,50,Zafiro,21,Teselia
+571,Zoroark,Siniestro,,60,Zoroark,25,Teselia
+555,Darmanitan,Fuego,,105,Onix,50,Teselia
+561,Sigilyph,Psiquico,Volador,72,Sigilyph,59,Teselia
+529,Drilbur,Tierra,,60,Crepusculo,40,Teselia
+530,Excadrill,Tierra,Acero,110,Excadrill,36,Teselia
+635,Hydreigon,Siniestro,Dragon,92,Titan,10,Teselia
+509,Purrloin,Siniestro,,41,Purrloin,26,Teselia
+501,Oshawott,Agua,,55,Excalibur,40,Teselia
+553,Krookodile,Tierra,Siniestro,95,Krookodile,28,Teselia
+596,Galvantula,Bicho,Electrico,70,Vulcano,54,Teselia
+609,Chandelure,Fantasma,Fuego,60,Chandelure,57,Teselia
+519,Pidove,Normal,Volador,50,Chispa,64,Teselia
+656,Froakie,Agua,,41,Froakie,66,Kalos
+661,Fletchling,Normal,Volador,45,Sombra,59,Kalos
+699,Aurorus,Roca,Hielo,123,Aurorus,69,Kalos
+663,Talonflame,Fuego,Volador,78,Piedrita,30,Kalos
+675,Pangoro,Lucha,Siniestro,95,Pangoro,31,Kalos
+700,Sylveon,Hada,,95,Rayo,15,Kalos
+706,Goodra,Dragon,,90,Goodra,54,Kalos
+695,Heliolisk,Electrico,Normal,62,Tormenta,9,Kalos
+678,Meowstic,Psiquico,,74,Meowstic,65,Kalos
+653,Fennekin,Fuego,,40,Brasas,54,Kalos
+650,Chespin,Planta,,56,Chespin,2,Kalos
+697,Tyrantrum,Roca,Dragon,82,Garra,41,Kalos
+707,Klefki,Acero,Hada,57,Klefki,57,Kalos
+681,Aegislash,Acero,Fantasma,60,Colmillo,70,Kalos
+687,Malamar,Siniestro,Psiquico,86,Malamar,58,Kalos
+666,Vivillon,Bicho,Volador,80,Trueno,43,Kalos
+671,Florges,Hada,,78,Florges,63,Kalos
+658,Greninja,Agua,Siniestro,72,Nube,52,Kalos
+686,Inkay,Siniestro,Psiquico,53,Inkay,52,Kalos
+669,Flabebe,Hada,,44,Estrella,64,Kalos
+659,Bunnelby,Normal,,38,Bunnelby,67,Kalos
+691,Dragalge,Veneno,Dragon,65,Rocio,58,Kalos
+701,Hawlucha,Lucha,Volador,78,Hawlucha,32,Kalos
+715,Noivern,Volador,Dragon,85,Viento,61,Kalos
+765,Oranguru,Normal,Psiquico,90,Oranguru,39,Alola
+728,Popplio,Agua,,50,Furia,59,Alola
+778,Mimikyu,Fantasma,Hada,55,Mimikyu,19,Alola
+768,Golisopod,Bicho,Agua,75,Lunita,46,Alola
+784,Kommo-o,Dragon,Lucha,75,Kommo-o,37,Alola
+741,Oricorio,Fuego,Volador,75,Solete,60,Alola
+752,Araquanid,Agua,Bicho,68,Araquanid,35,Alola
+796,Xurkitree,Electrico,,83,Bola,9,Alola
+758,Salazzle,Veneno,Fuego,68,Salazzle,58,Alola
+743,Ribombee,Bicho,Hada,60,Cometa,23,Alola
+798,Kartana,Planta,Acero,59,Kartana,32,Alola
+735,Gumshoos,Normal,,88,Rafaga,50,Alola
+806,Blacephalon,Fuego,Fantasma,53,Blacephalon,13,Alola
+774,Minior,Roca,Volador,60,Nieve,11,Alola
+722,Rowlet,Planta,Volador,68,Rowlet,57,Alola
+745,Lycanroc,Roca,,75,Ola,36,Alola
+760,Bewear,Normal,Lucha,120,Bewear,42,Alola
+763,Tsareena,Planta,,72,Puma,69,Alola
+738,Vikavolt,Bicho,Electrico,77,Vikavolt,57,Alola
+733,Toucannon,Normal,Volador,80,Pluma,61,Alola
+748,Toxapex,Veneno,Agua,50,Toxapex,31,Alola
+777,Togedemaru,Electrico,Acero,65,Fantasmita,4,Alola
+725,Litten,Fuego,,45,Litten,17,Alola
+730,Primarina,Agua,Hada,80,Reyezuelo,14,Alola
+823,Corviknight,Volador,Acero,98,Corviknight,61,Galar
+832,Dubwool,Normal,,72,Campeon,7,Galar
+865,Sirfetch'd,Lucha,,62,Sirfetch'd,32,Galar
+834,Drednaw,Agua,Roca,90,Centella,34,Galar
+842,Appletun,Planta,Dragon,110,Appletun,59,Galar
+828,Thievul,Siniestro,,70,Ascua,40,Galar
+861,Grimmsnarl,Siniestro,Hada,95,Grimmsnarl,32,Galar
+839,Coalossal,Roca,Fuego,110,Marejada,43,Galar
+816,Sobble,Agua,,50,Sobble,36,Galar
+810,Grookey,Planta,,50,Vendaval,10,Galar
+836,Boltund,Electrico,,69,Boltund,19,Galar
+879,Copperajah,Acero,,122,Canica,67,Galar
+858,Hatterene,Psiquico,Hada,57,Hatterene,12,Galar
+884,Duraludon,Acero,Dragon,70,Espina,40,Galar
+862,Obstagoon,Siniestro,Normal,93,Obstagoon,16,Galar
+826,Orbeetle,Bicho,Psiquico,60,Relampago,54,Galar
+853,Grapploct,Lucha,,80,Grapploct,57,Galar
+818,Inteleon,Agua,,70,Bruma,4,Galar
+844,Sandaconda,Tierra,,72,Sandaconda,27,Galar
+866,Mr. Rime,Hielo,Psiquico,80,Duna,57,Galar
+813,Scorbunny,Fuego,,50,Scorbunny,19,Galar
+851,Centiskorch,Fuego,Bicho,100,Coral,36,Galar
+849,Toxtricity,Electrico,Veneno,75,Toxtricity,49,Galar
+887,Dragapult,Dragon,Fantasma,88,Vikingo,8,Galar
+908,Meowscarada,Planta,Siniestro,76,Meowscarada,61,Paldea
+909,Fuecoco,Fuego,,67,Tiza,7,Paldea
+949,Toedscruel,Tierra,Planta,80,Toedscruel,49,Paldea
+939,Bellibolt,Electrico,,109,Humo,12,Paldea
+906,Sprigatito,Planta,,40,Sprigatito,46,Paldea
+983,Kingambit,Siniestro,Acero,100,Brisa,58,Paldea
+934,Garganacl,Roca,,100,Garganacl,53,Paldea
+914,Quaquaval,Agua,Lucha,85,Meteoro,48,Paldea
+923,Pawmot,Electrico,Lucha,70,Pawmot,27,Paldea
+966,Revavroom,Acero,Veneno,80,Eclipse,58,Paldea
+964,Palafin,Agua,,100,Palafin,48,Paldea
+1000,Gholdengo,Acero,Fantasma,87,Tifon,63,Paldea
+927,Dachsbun,Hada,,57,Dachsbun,60,Paldea
+975,Cetitan,Hielo,,170,Avalancha,48,Paldea
+930,Arboliva,Planta,Normal,78,Arboliva,53,Paldea
+912,Quaxly,Agua,,55,Ciclon,13,Paldea
+998,Baxcalibur,Dragon,Hielo,115,Baxcalibur,15,Paldea
+956,Espathra,Psiquico,,95,Fenix,5,Paldea
+959,Tinkaton,Hada,Acero,85,Tinkaton,9,Paldea
+970,Glimmora,Roca,Veneno,83,Quimera,46,Paldea
+937,Ceruledge,Fuego,Fantasma,75,Ceruledge,16,Paldea
+911,Skeledirge,Fuego,Fantasma,104,Obsidiana,43,Paldea
+980,Clodsire,Veneno,Tierra,130,Clodsire,53,Paldea
+925,Maushold,Normal,,74,Zafiro,10,Paldea
+936,Armarouge,Fuego,Psiquico,85,Armarouge,69,Paldea
+979,Annihilape,Lucha,Fantasma,110,Onix,5,Paldea
+498,Tepig,Fuego,,65,Tepig,66,Iniciales
+495,Snivy,Planta,,45,Crepusculo,10,Iniciales
+810,Grookey,Planta,,50,Grookey,15,Iniciales
+653,Fennekin,Fuego,,40,Titan,40,Iniciales
+906,Sprigatito,Planta,,40,Sprigatito,51,Iniciales
+258,Mudkip,Agua,,50,Excalibur,63,Iniciales
+725,Litten,Fuego,,45,Litten,14,Iniciales
+816,Sobble,Agua,,50,Vulcano,34,Iniciales
+909,Fuecoco,Fuego,,67,Fuecoco,10,Iniciales
+722,Rowlet,Planta,Volador,68,Chispa,10,Iniciales
+1,Bulbasaur,Planta,Veneno,45,Bulbasaur,66,Iniciales
+390,Chimchar,Fuego,,44,Sombra,28,Iniciales
+813,Scorbunny,Fuego,,50,Scorbunny,48,Iniciales
+158,Totodile,Agua,,50,Piedrita,58,Iniciales
+656,Froakie,Agua,,41,Froakie,49,Iniciales
+501,Oshawott,Agua,,55,Rayo,56,Iniciales
+393,Piplup,Agua,,53,Piplup,15,Iniciales
+152,Chikorita,Planta,,45,Tormenta,23,Iniciales
+912,Quaxly,Agua,,55,Quaxly,50,Iniciales
+4,Charmander,Fuego,,39,Brasas,23,Iniciales
+728,Popplio,Agua,,50,Popplio,27,Iniciales
+255,Torchic,Fuego,,45,Garra,20,Iniciales
+650,Chespin,Planta,,56,Chespin,65,Iniciales
+252,Treecko,Planta,,40,Colmillo,26,Iniciales
+387,Turtwig,Planta,,55,Turtwig,51,Iniciales
+155,Cyndaquil,Fuego,,39,Trueno,39,Iniciales
+7,Squirtle,Agua,,44,Squirtle,6,Iniciales
+227,Skarmory,Acero,Volador,65,Skarmory,8,Competitivo
+282,Gardevoir,Psiquico,Hada,68,Nube,13,Competitivo
+212,Scizor,Bicho,Acero,70,Scizor,6,Competitivo
+135,Jolteon,Electrico,,65,Estrella,41,Competitivo
+635,Hydreigon,Siniestro,Dragon,92,Hydreigon,20,Competitivo
+448,Lucario,Lucha,Acero,70,Rocio,12,Competitivo
+445,Garchomp,Dragon,Tierra,108,Garchomp,15,Competitivo
+149,Dragonite,Dragon,Volador,91,Viento,34,Competitivo
+197,Umbreon,Siniestro,,95,Umbreon,40,Competitivo
+196,Espeon,Psiquico,,65,Furia,14,Competitivo
+983,Kingambit,Siniestro,Acero,100,Kingambit,64,Competitivo
+94,Gengar,Fantasma,Veneno,60,Lunita,65,Competitivo
+553,Krookodile,Tierra,Siniestro,95,Krookodile,27,Competitivo
+784,Kommo-o,Dragon,Lucha,75,Solete,42,Competitivo
+392,Infernape,Fuego,Lucha,76,Infernape,4,Competitivo
+65,Alakazam,Psiquico,,55,Bola,8,Competitivo
+376,Metagross,Acero,Psiquico,80,Metagross,48,Competitivo
+706,Goodra,Dragon,,90,Cometa,9,Competitivo
+306,Aggron,Acero,Roca,70,Aggron,40,Competitivo
+530,Excadrill,Tierra,Acero,110,Rafaga,38,Competitivo
+130,Gyarados,Agua,Volador,95,Gyarados,34,Competitivo
+350,Milotic,Agua,,95,Nieve,63,Competitivo
+248,Tyranitar,Roca,Siniestro,100,Tyranitar,65,Competitivo
+887,Dragapult,Dragon,Fantasma,88,Ola,43,Competitivo
+998,Baxcalibur,Dragon,Hielo,115,Baxcalibur,20,Competitivo
+373,Salamence,Dragon,Volador,95,Puma,61,Competitivo
+663,Talonflame,Fuego,Volador,78,Talonflame,63,Equipo Campeon
+700,Sylveon,Hada,,95,Pluma,45,Equipo Campeon
+282,Gardevoir,Psiquico,Hada,68,Gardevoir,5,Equipo Campeon
+25,Pikachu,Electrico,,35,Fantasmita,54,Equipo Campeon
+724,Decidueye,Planta,Fantasma,78,Decidueye,51,Equipo Campeon
+908,Meowscarada,Planta,Siniestro,76,Reyezuelo,7,Equipo Campeon
+445,Garchomp,Dragon,Tierra,108,Garchomp,51,Equipo Campeon
+727,Incineroar,Fuego,Siniestro,95,Campeon,16,Equipo Campeon
+3,Venusaur,Planta,Veneno,80,Venusaur,34,Equipo Campeon
+350,Milotic,Agua,,95,Centella,48,Equipo Campeon
+815,Cinderace,Fuego,,80,Cinderace,30,Equipo Campeon
+143,Snorlax,Normal,,160,Ascua,58,Equipo Campeon
+612,Haxorus,Dragon,,76,Haxorus,31,Equipo Campeon
+849,Toxtricity,Electrico,Veneno,75,Marejada,20,Equipo Campeon
+914,Quaquaval,Agua,Lucha,85,Quaquaval,15,Equipo Campeon
+760,Bewear,Normal,Lucha,120,Vendaval,31,Equipo Campeon
+1000,Gholdengo,Acero,Fantasma,87,Gholdengo,40,Equipo Campeon
+730,Primarina,Agua,Hada,80,Canica,42,Equipo Campeon
+6,Charizard,Fuego,Volador,78,Charizard,68,Equipo Campeon
+131,Lapras,Agua,Hielo,130,Espina,62,Equipo Campeon
+681,Aegislash,Acero,Fantasma,60,Aegislash,50,Equipo Campeon
+248,Tyranitar,Roca,Siniestro,100,Relampago,62,Equipo Campeon
+911,Skeledirge,Fuego,Fantasma,104,Skeledirge,20,Equipo Campeon
+149,Dragonite,Dragon,Volador,91,Bruma,29,Equipo Campeon
+9,Blastoise,Agua,,79,Blastoise,27,Equipo Campeon
+658,Greninja,Agua,Siniestro,72,Duna,62,Equipo Campeon
