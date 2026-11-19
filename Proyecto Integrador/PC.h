@@ -42,8 +42,6 @@ private:
     bool agregar_cajas(const string&);
     // Complejidad: O(n)
     void limpiar_cajas();
-    // Complejidad: O(n)
-    bool cambiar_caja(const string&);
     
 public:
     PC(const string& nombre = "");
@@ -64,6 +62,10 @@ public:
     void siguiente_caja();
     // Complejidad O(1)
     void caja_anterior();
+    // Complejidad: O(n)
+    bool cambiar_caja(const string&);
+    // Complejidad: O(n)
+    void mostrar_cajas();
 
     // Complejidad O(n)
     void cargar_csv(const string&);

@@ -98,6 +98,30 @@ void PC::caja_anterior() {
     caja_actual = caja_actual->anterior;
 }
 
+bool PC::cambiar_caja(const string& nombre) {
+    Nodo* found = buscar_caja(nombre);
+
+    if (found == 0) {return false;}
+
+    caja_actual = found; 
+    return true;
+}
+
+void PC::mostrar_cajas() {
+    if (primera_caja == 0) return;
+
+    cout << "\nCajas Disponibles:" << endl;
+    Nodo* p = primera_caja;
+    do {
+        cout << " - " << p->nombre;
+        if (poke_por_caja(p->nombre) >= MAX_CAJA) {cout << " (full)";}
+        if (p == caja_actual) {cout << " (actual)";}
+        
+        cout << endl;
+        p = p->siguiente;
+    } while (p != primera_caja);
+}
+
 
 void PC::cargar_csv(const string& file){
     inventario.clear();
@@ -223,7 +247,9 @@ void PC::mostrar_caja() {
 
     cout << "                    PC DE " << upConvert(nombre) << endl;
 
-    cout << "                 CAJA ACTUAL: " << upConvert(actual) << endl;
+    cout << "      << [A] " << caja_actual->anterior->nombre << "  |  CAJA ACTUAL: " 
+        << upConvert(actual) << "  |  " << caja_actual->siguiente->nombre 
+        << " [D] >>" << endl;
 
     cout << "============================================================";
     cout << "============================================================\n";
@@ -309,6 +335,12 @@ void PC::agregar_pokemon(PokeCapturado& nuevo) {
 
     agregar_cajas(name_caja);
     inventario.push_back(nuevo);
+
+    string tag = nuevo.getNombre();
+    if (upConvert(nuevo.getMote()) != upConvert(nuevo.getNombre())) {
+        tag += " (" + nuevo.getNombre() + ")";
+    }
+    cout << tag << " fue guardado en \"" << name_caja << "\"." << endl;
 }
 
 void PC::liberar_pokemon(const string& nombre) {
@@ -337,31 +369,34 @@ vector<PokeCapturado> PC::buscar_pokemon(const string& name) {
     if (name.empty()) {return encontrados;}
 
     string busqueda = upConvert(name);
+    string actual = getCajaActual();
 
     for (int i = 0; i < inventario.size(); i++) {
         string mote = upConvert(inventario[i].getMote());
         string poke = upConvert(inventario[i].getNombre());
 
-        if (mote == busqueda && mote != poke) {
+        if (mote == busqueda || poke == busqueda) {
             encontrados.push_back(inventario[i]);
-            break;
         }
     }
 
     if (encontrados.empty()) {
-        for (int i = 0; i < inventario.size(); i++) {
-            if (upConvert(inventario[i].getNombre()) == busqueda) {
-                encontrados.push_back(inventario[i]);
-            }
-        }
+        cout << "No se encontró ningún Pokemón llamado \"" << name << "\"" <<
+        endl;
+        return encontrados;
     }
-    if (encontrados.empty()) {return encontrados;}
+
     cout << "Pokemón encontrados:" << endl;
     
     for (int i = 0; i < encontrados.size(); i++) {
-        cout << "[" << i << "]" << encontrados[i].getMote()
-            << " | Nivel " << encontrados[i].getLv() << " | Caja: "
-            << encontrados[i].getCaja() << endl;
+        cout << "[" << i << "]" << encontrados[i].getMote();
+        if (upConvert(encontrados[i].getMote()) != 
+            upConvert(encontrados[i].getNombre())) {
+                cout << " (" << encontrados[i].getNombre() << ")";
+            }
+        cout << " | Caja: " << encontrados[i].getCaja();
+        if (encontrados[i].getCaja() == actual) {cout << "(actual)";}
+        cout << endl;
     }
     return encontrados;
 }
@@ -531,9 +566,9 @@ void PC::limpiar_cajas() {
 bool PC::cambiar_caja(const string& nombre) {
     Nodo* found = buscar_caja(nombre);
 
-    if (found == 0) {return false;}
+    if (found == 0) return false;
 
-    caja_actual = found; 
+    caja_actual = found;
     return true;
 }
 
