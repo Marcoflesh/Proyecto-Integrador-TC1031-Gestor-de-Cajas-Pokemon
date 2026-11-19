@@ -75,7 +75,10 @@ void Pokedex::cargar_pokedex(const string& file) {
     ifstream archivo(file);
     string linea;
 
-    if (!archivo.is_open()) {return;}
+    if (!archivo.is_open()) {
+        cout << "Nose pudo cargar la pokedex" << endl;
+        return;
+    }
 
     if (!getline(archivo,linea)) {
         archivo.close();
@@ -168,6 +171,10 @@ void Pokedex::limpiar(NodoPokedex* nodo) {
 
 Pokedex::Pokedex(const string& file) : raiz(0) {cargar_pokedex(file);}
 
+bool Pokedex::loaded() const {
+    return raiz != 0;
+}
+
 Pokedex::~Pokedex() {
     limpiar(raiz);
     raiz = 0;
@@ -186,3 +193,84 @@ vector<Pokemon> Pokedex::visit() {
     inorder(raiz, lista);
     return lista;
 }
+
+NodoPagina::NodoPagina(int num, const vector<Pokemon>& lista) : n_pagina(num),
+    pokemons(lista), siguiente(0), anterior(0) {}
+
+PaginaPokedex::PaginaPokedex(const vector<Pokemon>& lista, int por_pagina = 100) :
+    primera_p(0), p_actual(0), total_pag(0) {
+        if (lista.empty() || por_pagina <= 0) return;
+
+        int n = 1;
+        for (int i = 0; i < lista.size(); i += por_pagina) {
+            vector<Pokemon> bloque;
+            for (int j = i; j < i + por_pagina && j < lista.size(); j++) {
+                bloque.push_back(lista[j]);
+            }
+
+            NodoPagina* nueva = new NodoPagina(n, bloque);
+            if (primera_p == 0) {
+                primera_p = nueva;
+                p_actual = nueva;
+                nueva->siguiente = nueva;
+                nueva->anterior = nueva;
+            } else {
+                NodoPagina* ultima = primera_p->anterior;
+                ultima->siguiente = nueva;
+                nueva->anterior = ultima;
+                nueva->siguiente = primera_p;
+                primera_p->anterior = nueva;
+            }
+            n++;
+            total_pag++;
+        }
+    }
+
+PaginaPokedex::~PaginaPokedex() {limpiar_paginas();}
+
+void PaginaPokedex::limpiar_paginas() {
+    if (primera_p == 0) {
+        p_actual = 0;
+        total_pag = 0;
+        return;
+    }
+
+    NodoPagina* p = primera_p->siguiente;
+    while (p != primera_p) {
+        NodoPagina* siguiente = p->siguiente;
+        delete p;
+        p = siguiente;
+    }
+
+    delete primera_p;
+    primera_p = 0;
+    p_actual = 0;
+    total_pag = 0;
+}
+
+void PaginaPokedex::next_p() {
+    if (p_actual == 0) return;
+    p_actual = p_actual->siguiente;
+}
+
+void PaginaPokedex::previous_p() {
+    if (p_actual == 0) return;
+    p_actual = p_actual->siguiente;
+}
+
+void PaginaPokedex::mostrar_pagina() const {
+    if (p_actual == 0) return;
+
+    cout << "\n==============================================" << endl;
+    cout << "              POKEDEX " << p_actual->n_pagina
+        << " DE " << total_pag << endl;
+    cout << "==============================================" << endl;
+
+    for (int i = 0; i < p_actual->pokemons.size(); i++) {
+        cout << "#" << p_actual->pokemons[i].getID() << " "
+            << p_actual->pokemons[i].getNombre()
+            << " | Tipo: " << p_actual->pokemons[i].getTipo() << endl;
+    }
+}
+
+bool PaginaPokedex::empty() const {return primera_p == 0;}

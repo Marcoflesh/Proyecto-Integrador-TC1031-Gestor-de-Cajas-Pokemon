@@ -80,10 +80,47 @@ private:
 public:
     Pokedex(const string& archivo = "pokedex_completa.txt");
     ~Pokedex();
+    // Complejidad: O(1)
+    bool loaded() const;
     // Complejidad: O(log n), peor caso O(n)
     Pokemon* buscar_pokemon(const string&);
     // Complejidad O(n)
     vector<Pokemon> visit();
+};
+
+class NodoPagina {
+private:
+    int n_pagina;
+    vector<Pokemon> pokemons;
+    NodoPagina* siguiente;
+    NodoPagina* anterior;
+
+    NodoPagina(int, const vector<Pokemon>&);
+
+    friend class PaginaPokedex;
+};
+
+class PaginaPokedex {
+private:
+    NodoPagina* primera_p;
+    NodoPagina* p_actual;
+    int total_pag;
+
+    // Complejidad: O(n)
+    void limpiar_paginas();
+
+public:
+    PaginaPokedex(const vector<Pokemon>&, int);
+    ~PaginaPokedex();
+
+    // Comlejidad: O(1)
+    void next_p();
+    // Complejidad: O(1)
+    void previous_p();
+    // Complejidad: O(n)
+    void mostrar_pagina() const;
+    // Complejidad: O(1)
+    bool empty() const;
 };
 
 #endif
