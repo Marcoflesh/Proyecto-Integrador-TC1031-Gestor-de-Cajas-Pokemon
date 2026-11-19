@@ -7,19 +7,19 @@
 using namespace std;
 
 PC::PC(const string& nombre) : nombre(nombre), 
-    primera_caja(nullptr), caja_actual(nullptr) {}
+    primera_caja(0), caja_actual(0) {}
 
 PC::~PC() {limpiar_cajas();}
 
 string PC::getCajaActual() {
-    if (caja_actual == nullptr) {return "";}
+    if (caja_actual == 0) {return "";}
     return caja_actual->nombre;
 }
 string PC::getNombre() {return nombre;}
 vector<string> PC::getCajas() {
     vector<string> nombres;
 
-    if (primera_caja == nullptr) {return nombres;}
+    if (primera_caja == 0) {return nombres;}
     Nodo* p = primera_caja;
     do {
         nombres.push_back(p->nombre);
@@ -52,7 +52,7 @@ void PC::crear_caja(const string& nueva) {
 }
 
 void PC::renombrar_caja(const string& nombre) {
-    if(caja_actual == nullptr) {return;}
+    if(caja_actual == 0) {return;}
 
     if (nombre.empty()) {return;}
 
@@ -64,7 +64,7 @@ void PC::renombrar_caja(const string& nombre) {
 
     Nodo* caja_existente = buscar_caja(nombre);
 
-    if (caja_existente != nullptr && caja_existente != caja_actual) {return;}
+    if (caja_existente != 0 && caja_existente != caja_actual) {return;}
 
     string previo = caja_actual->nombre;
 
@@ -77,9 +77,9 @@ void PC::renombrar_caja(const string& nombre) {
 }
 
 void PC::siguiente_caja() {
-    if (primera_caja == nullptr) return;
+    if (primera_caja == 0) return;
 
-    if (caja_actual == nullptr) {
+    if (caja_actual == 0) {
         caja_actual = primera_caja;
         return;
     }
@@ -88,9 +88,9 @@ void PC::siguiente_caja() {
 }
 
 void PC::caja_anterior() {
-    if (primera_caja == nullptr) {return;}
+    if (primera_caja == 0) {return;}
 
-    if (caja_actual == nullptr) {
+    if (caja_actual == 0) {
         caja_actual = primera_caja;
         return;
     }
@@ -156,7 +156,7 @@ void PC::guardar_csv(const string& file) {
 
     temporal << "CAJAS:";
 
-    if (primera_caja != nullptr) {
+    if (primera_caja != 0) {
         Nodo* p = primera_caja;
 
         do {
@@ -272,7 +272,7 @@ void PC::mostrar_caja() {
 void PC::mover_poke_caja(const string& nombre, const string& name_destino) {
     Nodo* destino = buscar_caja(name_destino);
 
-    if (destino == nullptr) {return;}
+    if (destino == 0) {return;}
 
     if (destino == caja_actual) {return;}
 
@@ -472,7 +472,7 @@ int PC::poke_por_caja(const string& nombre) {
 }
 
 Nodo* PC::buscar_caja(const string& nombre) {
-    if (primera_caja == nullptr || nombre.empty()) {return nullptr;}
+    if (primera_caja == 0 || nombre.empty()) {return 0;}
 
     string busqueda = upConvert(nombre);
     Nodo* p = primera_caja;
@@ -484,15 +484,15 @@ Nodo* PC::buscar_caja(const string& nombre) {
         p = p->siguiente;
     } while(p != primera_caja);
 
-    return nullptr;
+    return 0;
 }
 
 bool PC::agregar_cajas(const string& nueva){
-    if(nueva.empty() || buscar_caja(nueva) != nullptr) {return false;}
+    if(nueva.empty() || buscar_caja(nueva) != 0) {return false;}
 
     Nodo* nuevo = new Nodo(nueva);
 
-    if (primera_caja == nullptr) {
+    if (primera_caja == 0) {
         primera_caja = nuevo;
         caja_actual  = nuevo;
 
@@ -512,8 +512,8 @@ bool PC::agregar_cajas(const string& nueva){
 }
 
 void PC::limpiar_cajas() {
-    if (primera_caja == nullptr) {
-        caja_actual = nullptr;
+    if (primera_caja == 0) {
+        caja_actual = 0;
         return;
     }
     Nodo* p = primera_caja->siguiente;
@@ -524,19 +524,19 @@ void PC::limpiar_cajas() {
         p = siguiente;
     }
     delete primera_caja;
-    primera_caja = nullptr;
-    caja_actual = nullptr;
+    primera_caja = 0;
+    caja_actual = 0;
 }
 
 bool PC::cambiar_caja(const string& nombre) {
     Nodo* found = buscar_caja(nombre);
 
-    if (found == nullptr) {return false;}
+    if (found == 0) {return false;}
 
     caja_actual = found; 
     return true;
 }
 
 
-Nodo::Nodo(const string& nombre) : nombre(nombre), siguiente(nullptr), 
-    anterior(nullptr) {}
+Nodo::Nodo(const string& nombre) : nombre(nombre), siguiente(0),
+    anterior(0) {}

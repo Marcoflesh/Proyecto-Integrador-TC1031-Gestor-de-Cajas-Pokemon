@@ -272,7 +272,6 @@ void menu(PC& pc, const string& archivo) {
 
 void menu_info(PokeCapturado& pokemon) {   
 
-    
     pokemon.mostrar_info();
 
     string opcion;

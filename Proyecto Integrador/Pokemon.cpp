@@ -68,8 +68,8 @@ void PokeCapturado::mostrar_info() {
     cout << "\n==================================\n";
 }
 
-NodoPokedex::NodoPokedex(const Pokemon& pokemon) : dato(pokemon), left(nullptr), 
-    right(nullptr) {}
+NodoPokedex::NodoPokedex(const Pokemon& pokemon) : dato(pokemon), left(0), 
+    right(0) {}
 
 void Pokedex::cargar_pokedex(const string& file) {
     ifstream archivo(file);
@@ -120,7 +120,7 @@ void Pokedex::cargar_pokedex(const string& file) {
 }
 
 NodoPokedex* Pokedex::insertar(NodoPokedex* nodo, const Pokemon& pokemon) {
-    if (nodo == nullptr) {return new NodoPokedex(pokemon);}
+    if (nodo == 0) {return new NodoPokedex(pokemon);}
 
     string nuevo = upConvert(pokemon.getNombre());
     string actual = upConvert(nodo->dato.getNombre());
@@ -135,7 +135,7 @@ NodoPokedex* Pokedex::insertar(NodoPokedex* nodo, const Pokemon& pokemon) {
 }
 
 NodoPokedex* Pokedex::buscar_nodo(NodoPokedex* nodo, const string& nombre) {
-    if (nodo == nullptr) return nullptr;
+    if (nodo == 0) return 0;
 
     string buscado = upConvert(nombre);
     string actual = upConvert(nodo->dato.getNombre());
@@ -158,7 +158,7 @@ void Pokedex::inorder(NodoPokedex* nodo, vector<Pokemon>& lista) {
 }
 
 void Pokedex::limpiar(NodoPokedex* nodo) {
-    if (nodo == nullptr) return;
+    if (nodo == 0) return;
 
     limpiar(nodo->left);
     limpiar(nodo->right);
@@ -170,14 +170,14 @@ Pokedex::Pokedex(const string& file) : raiz(0) {cargar_pokedex(file);}
 
 Pokedex::~Pokedex() {
     limpiar(raiz);
-    raiz = nullptr;
+    raiz = 0;
 }
 
 Pokemon* Pokedex::buscar_pokemon(const string& nombre) {
     if (nombre.empty()) return 0;
 
     NodoPokedex* encontrado = buscar_nodo(raiz, nombre);
-    if (encontrado == nullptr) return nullptr;
+    if (encontrado == 0) return 0;
     return &(encontrado->dato);
 }
 
