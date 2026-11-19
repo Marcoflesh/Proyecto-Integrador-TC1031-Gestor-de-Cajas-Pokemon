@@ -3,19 +3,23 @@
 ### Hecho por Marco Antonio Hernández Roque - A01709802
 
 ## Descripción
-Este es un proyecto en C++ en el cual el usuario tiene su equipo Pokémon y puede almacenarlo dentro de un sistema de cajas similar al de los videojuegos de las consolas de Nintendo. El programa permite gestionar perfiles de jugadores, navegar entre cajas de almacenamiento, consultar una Pokédex completa, ordenar los Pokémon almacenados, realizar búsquedas por nombre o mote y guardar los cambios en archivos de texto.
+<div align="justify">
+ Este es un proyecto en C++ en el cual el usuario tiene su equipo Pokémon y puede almacenarlo dentro de un sistema de cajas similar al de los videojuegos de las consolas de Nintendo. El programa permite gestionar perfiles de jugadores, navegar entre cajas de almacenamiento, consultar una Pokédex completa, ordenar los Pokémon almacenados, realizar búsquedas por nombre o mote y guardar los cambios en archivos de texto.
+</div>
 
 ## Tecnologías y estructuras implementadas
-Para el desarrollo del proyecto se tomaron las siguientes decisiones técnicas:
+<div align="justify">
+ Para el desarrollo del proyecto se tomaron las siguientes decisiones técnicas:
 
 1. **Lista Doblemente Ligada Circular para las cajas (`Nodo` en `PC`):** En los videojuegos de Pokémon, al avanzar más allá de la última caja el jugador regresa automáticamente a la primera, y al retroeder desde la primera pasa a la última. Se eligió una lista doblemente ligada circular porque modela este comportamiento de forma natural: cada nodo apunta a su caja `siguiente` y `anterior`, logrando que el cambio de caja (`[A]` y `[D]`) ocurra en tiempo constante $O(1)$ sin importar cuántas cajas existan.
 2. **Árbol Binario de Búsqueda (BST) para la Pokédex (`Pokedex` y `NodoPokedex`):** Al agregar un nuevo Pokémon al PC el programa le pedía al usuario que escriba manualmente el ID y los tipos elementales, esto generaba errores de captura e inconsistencias. La solución fue implementar un BST que carga l0s 1,025 Pokemón desde `pokedex_completa.txt` ordenadas alfabéticamente por nombre. Esto permite buscar cualquier Pokemón en O(log n) en promedio para autocompletar su ID y tipos oficiales, además de permitir listar toda la Pokédex en orden alfabético (A-Z) mediante un recorrido `inorder`.
 3. **Vector dinámico (`vector<PokeCapturado>`) para el inventario:** Se utilizó un `vector` para almacenar los Pokémon capturados del jugador porque facilita el acceso indexado en O(1) al dibujar la cuadrícula de 6x5 y permite aplicar el algoritmo de ordenamiento `Merge Sort` sobre arreglos pegados.
 4. **Persistencia con archivos CSV/TXT y archivos temporales:** Se eligió el formato separado por comas en texto plano porque es ligero y fácil de inspeccionar en cualquier editor. Para la escritura se implementó un esquema de archivo temporal (`.temp`) seguido de `remove()` y `rename()`, evitando que el archivo original se corrompa si el programa se interrumpe a mitad del guardado. Para la generación de estos archivos se utilizó la ayuda de IA generativa para poder realizar los documentos en el formato requerido de una manera más simple y uniforme. Los archivos generados con IA son `Ash.txt`, `Red.txt` y `pokedex_completa.txt`. 
+</div>
 
 ## Estructuras de datos utilizadas
-
-### 1. Lista Doblemente Ligada Circular (`Nodo` y `PC`)
+<div align="justify">
+ ### 1. Lista Doblemente Ligada Circular (`Nodo` y `PC`)
 Cada caja de almacenamiento está representada por un objeto de la clase `Nodo` con su nombre y dos punteros (`siguiente` y `anterior`). La clase `PC` mantiene los punteros `primera_caja` y `caja_actual`.
 * **Navegar a caja siguiente / anterior (`siguiente_caja`, `caja_anterior`):**
   * Nivel de complejidad: O(1), ya que solo mueve el puntero `caja_actual` al nodo de a lado.
@@ -53,10 +57,12 @@ Se eligió Merge Sort porque es un algoritmo estable que garantiza un rendimient
 
 La complejidad de Merge Sort para x elementos en la caja actual y n Pokémon en el inventario total es:
 * **Nivel de complejidad:** O(n log n) en `ordenar_caja` al filtrar primero el inventario.
+</div>
   
 ## Lectura y escritura de archivos
 
-### Lectura de datos (`ifstream`)
+<div align="justify">
+ ### Lectura de datos (`ifstream`)
 1. **Usuarios (`User::cargar_usuarios`):** Abre `Usuarios.txt` con `ifstream`, lee línea por línea cada nombre de jugador y verifica que su archivo individual (por ejemplo, `Ash.txt`) exista y comience con el encabezado válido `CAJAS:`. 
 2. **Inventario y Cajas (`PC::cargar_csv`):** Lee el archivo del jugador seleccionado. De la primera línea (`CAJAS:...`) extrae los nombres separados por comas usando `stringstream` y construye la lista doblemente ligada circular. De las líneas siguientes separa los 8 atributos (`ID,NOMBRE,TIPO1,TIPO2,HP,MOTE,NIVEL,CAJA`), instancia cada `PokeCapturado` y lo agrega al inventario respetando el límite de 30 Pokémon por caja. 
 3. **Pokédex (`Pokedex::cargar_pokedex`):** Abre `pokedex_completa.txt`, valida que la cabecera sea `ID,NOMBRE,TIPO1,TIPO2` y lee los Pokemon para insertarlos en el BST.
@@ -64,6 +70,7 @@ La complejidad de Merge Sort para x elementos en la caja actual y n Pokémon en 
 ### Escritura de datos (`ofstream`)
 1. **Guardado de partida (`PC::guardar_csv`):** Cuando el usuario selecciona guardar y cerrar sesión (`[G]`), el programa crea un archivo temporal (`<Jugador>.txt.temp`) mediante `ofstream`. Primero recorre la lista circular desde `primera_caja` para escribir la línea `CAJAS:Caja 1,Caja 2,...`. Después recorre el vector `inventario` escribiendo los atributos de cada Pokémon separados por comas. Finalmente, elimina el archivo anterior con `remove()` y renombra el archivo temporal al nombre original con `rename()`. 
 2. **Creación y registro de nuevos jugadores (`PC::crear_jugador` y `User::registrar_usuario`):** `crear_jugador` inicializa las cajas por defecto (`Caja 1` y `Caja 2`) y genera el archivo `.txt` del jugador en O(1). Por su parte, `registrar_usuario` copia los nombres actuales de `Usuarios.txt` a `Usuarios_temp.txt`, agrega al nuevo jugador si no existía y reemplaza el archivo con `remove()` y `rename()`.
+</div>
 
 ## Nota para Windows
 
