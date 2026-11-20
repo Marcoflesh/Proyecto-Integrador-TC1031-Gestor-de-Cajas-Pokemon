@@ -98,15 +98,6 @@ void PC::caja_anterior() {
     caja_actual = caja_actual->anterior;
 }
 
-bool PC::cambiar_caja(const string& nombre) {
-    Nodo* found = buscar_caja(nombre);
-
-    if (found == 0) {return false;}
-
-    caja_actual = found; 
-    return true;
-}
-
 void PC::mostrar_cajas() {
     if (primera_caja == 0) return;
 
@@ -346,22 +337,54 @@ void PC::agregar_pokemon(PokeCapturado& nuevo) {
 void PC::liberar_pokemon(const string& nombre) {
     string actual = getCajaActual();
     string busqueda = upConvert(nombre);
+    vector<int> indices;
 
     for (int i = 0; i < inventario.size(); i++) {
         if (inventario[i].getCaja() == actual && 
         (upConvert(inventario[i].getMote()) == busqueda ||
             upConvert(inventario[i].getNombre()) == busqueda)) {
-
-                string tag = inventario[i].getMote();
-                if (inventario[i].getMote() != inventario[i].getNombre()) {
-                    tag += " (" + inventario[i].getNombre() + ")";
-                }
-                cout << "Se ha liberado a " << tag << endl;
-                inventario.erase(inventario.begin() + i);
-                return;
+                indices.push_back(i);
             } 
     }
-    cout << "No se encontró a " << nombre << " en esta caja" << endl;
+
+    if (indices.empty()) {
+        cout << "No se encontró a " << nombre << endl;
+        return;
+    }
+
+    int liberar = indices[0];
+
+    if (indices.size() > 1) {
+        cout << "Se encontraron varios Pokemón en \"" << actual << "\":" <<
+            endl;
+        for (int i = 0; i < indices.size(); i++) {
+            PokeCapturado& p = inventario[indices[i]];
+            cout << "[" << i << "] Mote: " << p.getMote() << " | Nombre: " 
+                << p.getNombre() << " | HP: " << p.getHP() << " | Nivel: "
+                << p.getLv() << endl;
+        }
+        int opcion;
+        cout << "Selecciona el Pokemon a liberar (-1 para cancelar): ";
+        if (!(cin >> opcion)) {
+            cin.clear();
+            cin.ignore();
+            return;
+        }
+
+        if (opcion < 0 || opcion >= indices.size()) {
+            cout << "Operación cancelada" << endl;
+            return;
+        }
+        liberar = indices[opcion];
+    }
+
+    string tag = inventario[liberar].getMote();
+    if (inventario[liberar].getMote() != inventario[liberar].getNombre()) {
+        tag += "(" + inventario[liberar].getNombre() + ")";
+    }
+
+    cout << "\nSe ha liberado a " << tag << endl;
+    inventario.erase(inventario.begin() + liberar);
 }
 
 vector<PokeCapturado> PC::buscar_pokemon(const string& name) {
