@@ -9,7 +9,7 @@
 using namespace std;
 
 void menu(PC&, const string&);
-void menu_info(PokeCapturado&);
+void menu_info(PokeCapturado&, PC&);
 void menu_pokemon(Pokedex&);
 
 int main() {
@@ -103,17 +103,10 @@ void menu(PC& pc, const string& archivo) {
     do {
         pc.mostrar_caja();
 
-        cout << "\n[A] Caja anterior" << endl;
-        cout << "[D] Siguiente caja" << endl;
-        cout << "[X] Ordenar esta caja por Pokedex" << endl;
-        cout << "[N] Agregar nuevo Pokemon" << endl;
-        cout << "[L] Liberar Pokemon" << endl;
-        cout << "[C] Crear nueva caja" << endl;
-        cout << "[M] Mover Pokemon a otra caja" << endl;
-        cout << "[B] Buscar Pokemon" << endl;
-        cout << "[P] Consultar Pokedex" << endl;
-        cout << "[R] Renombrar caja actual" << endl;
-        cout << "[G] Guardar y cerrar sesion" << endl;
+        cout << "\n  [A] Caja anterior        [D] Siguiente caja        [J] Ir a caja" << endl;
+        cout << "  [B] Buscar Pokemon       [N] Agregar Pokemon       [M] Mover Pokemon" << endl;
+        cout << "  [L] Liberar Pokemon      [X] Ordenar caja (ID)     [C] Crear nueva caja" << endl;
+        cout << "  [R] Renombrar caja       [P] Consultar Pokedex     [G] Guardar y salir" << endl;
         cout << "Opcion: ";
 
         char opcion;
@@ -129,18 +122,46 @@ void menu(PC& pc, const string& archivo) {
                 pc.siguiente_caja();
                 break;
 
+            case 'J': {
+                pc.mostrar_cajas();
+                string destino;
+                cout << "\nNombre de la caja a que deseas ir: ";
+                cin.ignore();
+                getline(cin, destino);
+
+                if (destino.empty()) break;
+
+                if (upConvert(destino) == upConvert(pc.getCajaActual())) {
+                    cout << "Estás en la caja \"" << pc.getCajaActual() << endl;
+                } else if (!pc.cambiar_caja(destino)) {
+                    cout << "No existe la caja \"" << destino << "\"" << endl;
+                }
+                break;
+            }
+
             case 'X':
                 pc.ordenar_caja();
                 break;
 
             case 'N': {
+                if (!pokedex.loaded()) {
+                    cout << "La Pokedex no se cargó correctamente" << endl;
+                    break;
+                }
+
                 string nombre;
                 cout << "Nombre del Pokemon: ";
                 cin.ignore();
                 getline(cin, nombre);
 
                 Pokemon* info = pokedex.buscar_pokemon(nombre);
-                if (info == NULL) {break;}
+                if (info == 0) {
+                    cout << "No se econtró \"" << nombre << endl;
+                    break;
+                }
+
+                cout << "Encontrado en Pokedex -> #" << info->getID() << " "
+                    << info->getNombre() << " | Tipo: " << info->getTipo() << endl;
 
                 string mote;
                 cout << "Mote (escribe 'Ninguno' para usar el nombre): ";
@@ -235,12 +256,12 @@ void menu(PC& pc, const string& archivo) {
                 
                 int opcion = 0;
 
-                cout << "Selecciona un Pokemón: ";
+                cout << "\nSelecciona un Pokemón: ";
                 cin >> opcion;
 
                 if (opcion < 0 || opcion >= encontrados.size()) {break;}
 
-                menu_info(encontrados[opcion]);
+                menu_info(encontrados[opcion], pc);
                 break;
             }
 
@@ -270,18 +291,26 @@ void menu(PC& pc, const string& archivo) {
     while (!close);
 }
 
-void menu_info(PokeCapturado& pokemon) {   
+void menu_info(PokeCapturado& pokemon, PC& pc) {   
 
     pokemon.mostrar_info();
+
+    bool otra_caja = (upConvert(pokemon.getCaja()) != upConvert(pc.getCajaActual()));
 
     string opcion;
 
     do {
+        if (otra_caja) {
+            cout << "[I] Ir a la caja \"" << pokemon.getCaja() << "\"" << endl;
+        }
         cout << "[S] Regresar a la caja" << endl;
-        cout << "Opción: "; 
+        cout << "Opción: ";
         cin >> opcion;
 
-        if (upConvert(opcion) != "S") {
+        if (otra_caja && upConvert(opcion) == "I") {
+            pc.cambiar_caja(pokemon.getCaja());
+            return;
+        } else if (upConvert(opcion) != "S") {
             cout << "Opción no válida" << endl;
         }
     } while (upConvert(opcion) != "S");
@@ -320,15 +349,27 @@ void menu_pokemon(Pokedex& pokedex) {
             }
             case 2: {
                 vector<Pokemon> lista = pokedex.visit();
-                cout << "\n==============================================" << endl;
-                cout << "       LISTA DE POKEDEX (ORDEN A-Z)" << endl;
-                cout << "==============================================" << endl;
 
-                for (int i = 0; i < lista.size(); i++) {
-                    cout << "#" << lista[i].getID() << " " << lista[i].getNombre()
-                        << " | Tipo: " << lista[i].getTipo() << endl; 
+                if (lista.empty()) {
+                    cout << "No hay datos cargados" << endl;
+                    break;
                 }
-                cout << "Total Pokemon: " << lista.size() << endl;
+
+                PaginaPokedex pagina(lista,100);
+                char nav = ' ';
+
+                do {
+                pagina.mostrar_pagina();
+                cout << "\n[A] Página anterior      [D] Siguiente página" << endl;
+                cout << "[S] Regresar" << endl;
+                cout << "Opcion: ";
+                cin >>  nav;
+                nav = toupper(nav);
+
+                if (nav == 'A') {pagina.previous_p();} 
+                else if (nav == 'D') {pagina.next_p();}
+
+                } while (nav != 'S');
                 break;
             }
             case 3: {
