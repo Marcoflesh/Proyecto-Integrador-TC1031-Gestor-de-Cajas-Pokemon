@@ -19,25 +19,34 @@
 
 ## Estructuras de datos utilizadas
 <div align="justify">
- ### 1. Lista Doblemente Ligada Circular (`Nodo` y `PC`)
-Cada caja de almacenamiento está representada por un objeto de la clase `Nodo` con su nombre y dos punteros (`siguiente` y `anterior`). La clase `PC` mantiene los punteros `primera_caja` y `caja_actual`.
+ 
+### 1. Lista Doblemente Ligada Circular (`Nodo` en `PC` y `NodoPagina` en `PaginadorPokedex`)
+Cada caja está representada por un objeto de la clase `Nodo` con su nombre y dos punteros (`siguiente` y `anterior`). La clase `PC` mantiene los punteros `primera_caja` y `caja_actual`. `PaginadorPokedex` agrupa la Pokédex en nodos `NodoPagina` de hasta 100 Pokémon enlazados circularmente.
 * **Navegar a caja siguiente / anterior (`siguiente_caja`, `caja_anterior`):**
   * Nivel de complejidad: O(1), ya que solo mueve el puntero `caja_actual` al nodo de a lado.
-* **Buscar una caja por nombre (`buscar_caja`):**
+* **Buscar o cambiar a una caja por nombre (`buscar_caja`, `cambiar_caja`):**
   * Mejor caso: O(1) si la caja buscada es `primera_caja`.
-  * Caso promedio y peor caso: O(n), ya que recorre los enlaces de la lista circular hasta dar una vuelta completa.
+  * Peor caso: O(n), ya que recorre los enlaces de la lista circular hasta dar una vuelta completa.
+* **Listar todas las cajas y marcar las llenas (`mostrar_cajas`):**
+  * Nivel de complejidad: O(n), ya que recorre la lista circular verificando con `poke_por_caja` si alguna caja está llena, en caso de estarlo muestra `(full)`.
 * **Insertar una caja (`agregar_cajas`, `crear_caja`):**
   * Nivel de complejidad: O(n). Debido a que primero se ejecuta `buscar_caja` para verificar que no exista una caja con el mismo nombre.
 * **Liberar memoria de cajas (`limpiar_cajas`):**
   * Nivel de complejidad: O(n), recorriendo y aplicando `delete` a cada nodo de la lista.
-
+* **Construir páginas de la Pokédex (`PaginadorPokedex`):**
+  * Nivel de complejidad: O(n), recorriendo una sola vez el vector ordenado obtenido del BST para crear las páginas de 100 Pokémon e insertarlas al final de la lista circular.
+* **Navegar entre páginas de la Pokédex (`siguiente_pagina`, `pagina_anterior`, `vacio`):**
+  * Nivel de complejidad: O(1), moviendo únicamente el puntero `pagina_actual`.
+ 
 ### 2. Árbol Binario de Búsqueda (`Pokedex` y `NodoPokedex`)
 Almacena el catálogo de los Pokémon. Cada `NodoPokedex` contiene un objeto `Pokemon` y los punteros `left` y `right`. Sea x el número total de Pokemon en la Pokédex (x = 1025):
+* **Verificar si la Pokédex cargó (`esta_cargada`):**
+  * Nivel de complejidad: O(1), comprueba si `raiz` es distinto de `0`.
 * **Insertar Pokemon (`insertar`):**
   * Nivel de complejidad: O(log n) en un árbol balanceado.
 * **Buscar Pokemon (`buscar_nodo`, `buscar_pokemon`):**
   * Mejor caso: O(1) si la especie buscada se encuentra en la raíz del árbol.
-  * Casos promedio y peor: O(log n) descartando la mitad del subárbol en cada comparación.
+  * Peor caso: O(log n) descartando la mitad del subárbol en cada comparación.
 * **Recorrido alfabético (`inorder`, `visit`):**
   * Nivel de complejidad: O(n), ya que visita cada nodo del árbol exactamente una vez siguiendo el orden izquierda, raíz, derecha.
 * **Liberar memoria del árbol (`limpiar`, `~Pokedex`):**
@@ -62,6 +71,7 @@ La complejidad de Merge Sort para x elementos en la caja actual y n Pokémon en 
 ## Lectura y escritura de archivos
 
 <div align="justify">
+ 
  ### Lectura de datos (`ifstream`)
 1. **Usuarios (`User::cargar_usuarios`):** Abre `Usuarios.txt` con `ifstream`, lee línea por línea cada nombre de jugador y verifica que su archivo individual (por ejemplo, `Ash.txt`) exista y comience con el encabezado válido `CAJAS:`. 
 2. **Inventario y Cajas (`PC::cargar_csv`):** Lee el archivo del jugador seleccionado. De la primera línea (`CAJAS:...`) extrae los nombres separados por comas usando `stringstream` y construye la lista doblemente ligada circular. De las líneas siguientes separa los 8 atributos (`ID,NOMBRE,TIPO1,TIPO2,HP,MOTE,NIVEL,CAJA`), instancia cada `PokeCapturado` y lo agrega al inventario respetando el límite de 30 Pokémon por caja. 
