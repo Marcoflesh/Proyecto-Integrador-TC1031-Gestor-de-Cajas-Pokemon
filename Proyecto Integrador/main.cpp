@@ -1,3 +1,16 @@
+/*
+ * Proyecto Gestor de Cajas Pokémon — Main
+ * Marco Antonio Hernández Roque
+ * A01709802
+ * 19/11/2026
+ * Materia: TC1031 Programación de Estructuras de Datos y Algoritmos 
+    Fundamentales
+ * Este es el archivo principal que ejecuta todo el proyecto.
+ * Se encarga de iniciar el Sistema PC, cargar o crear perfiles de 
+    jugadores y mostrar los menús en consola para administrar cajas, 
+    buscar y liberar Pokémon, consultar la Pokédex paginada y guardar 
+    los cambios en disco.
+ */
 #include "PC.h"
 #include "User.h"
 
@@ -8,8 +21,11 @@
 
 using namespace std;
 
+// Despliega el menú principal del PC del jugador activo
 void menu(PC&, const string&);
+// Muestra la info de un Pokémon encontrado y permite saltar a su caja
 void menu_info(PokeCapturado&, PC&);
+// Despliega el submenú de consulta y navegación paginada de la Pokédex
 void menu_pokemon(Pokedex&);
 
 int main() {
@@ -96,6 +112,19 @@ int main() {
     return 0;
 }
 
+/**
+ * menu controla el ciclo interactivo principal del PC de un jugador.
+ *
+ * Carga el BST de la Pokédex, dibuja la caja actual y muestra el menú 
+    de acciones en formato 3x4 para navegar cajas ([A]/[D]/[J]), 
+    ordenar con Merge Sort ([X]), agregar ([N]), liberar ([L]), 
+    crear/renombrar cajas ([C]/[R]), mover ([M]), buscar ([B]), 
+    consultar Pokédex ([P]) y guardar cambios ([G]).
+ *
+ * @param PC& pc instancia del PC del jugador, const string& archivo 
+    ruta de guardado
+ * @return
+ */
 void menu(PC& pc, const string& archivo) {
     Pokedex pokedex;
     bool close = false;
@@ -291,6 +320,19 @@ void menu(PC& pc, const string& archivo) {
     while (!close);
 }
 
+/**
+ * menu_info muestra la ficha completa de un Pokémon seleccionado en 
+    búsqueda.
+ *
+ * Imprime los datos del Pokémon con mostrar_info(). Si el Pokémon se 
+    encuentra en una caja distinta a la actual, habilita la opción [I] 
+    para saltar directamente a esa caja; en cualquier caso permite 
+    regresar con [S].
+ *
+ * @param PokeCapturado& pokemon ejemplar seleccionado, PC& pc instancia 
+    del PC
+ * @return
+ */
 void menu_info(PokeCapturado& pokemon, PC& pc) {   
 
     pokemon.mostrar_info();
@@ -316,6 +358,17 @@ void menu_info(PokeCapturado& pokemon, PC& pc) {
     } while (upConvert(opcion) != "S");
 }
 
+/**
+ * menu_pokemon gestiona el submenú de consulta de la Pokédex oficial.
+ *
+ * Permite buscar una especie individual en el BST ([1]), recorrer todo 
+    el catálogo en orden alfabético A-Z paginado de 100 en 100 mediante 
+    la lista circular PaginaPokedex ([2]), o regresar al PC principal 
+    ([3]).
+ *
+ * @param Pokedex& pokedex árbol binario con el catálogo de especies
+ * @return
+ */
 void menu_pokemon(Pokedex& pokedex) {
     bool regresar = false;
 
