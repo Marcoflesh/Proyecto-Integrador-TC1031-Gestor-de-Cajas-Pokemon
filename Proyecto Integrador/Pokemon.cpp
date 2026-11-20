@@ -255,7 +255,7 @@ void PaginaPokedex::next_p() {
 
 void PaginaPokedex::previous_p() {
     if (p_actual == 0) return;
-    p_actual = p_actual->siguiente;
+    p_actual = p_actual->anterior;
 }
 
 void PaginaPokedex::mostrar_pagina() const {
